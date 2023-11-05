@@ -1,8 +1,10 @@
 {
     "db_info":{
+        "uri": "mysql://avnadmin:AVNS_QfNouR95xlKFksVg7E_@mysql-1ba042e0-web-dev-assignment-remote-db.a.aivencloud.com:28438/defaultdb?ssl-mode=REQUIRED",
         "host": "mysql-1ba042e0-web-dev-assignment-remote-db.a.aivencloud.com",
-        "port": 28438,
+        "port": "28438",
         "user": "avnadmin",
-        "password": "AVNS_QfNouR95xlKFksVg7E_"
+        "password": "AVNS_QfNouR95xlKFksVg7E_",
+        "dbname": "defaultdb"
     }
 }
