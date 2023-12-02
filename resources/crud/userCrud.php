@@ -34,38 +34,30 @@ class UserCRUD {
         $conditions = [];
 
         // go through json provided and see what conditions are supplied
-        if (isset($parameters['id'])){
-            $conditions[] = "id = " . $parameters['id'];
-        }
-        if (isset($parameters["username"])){
-            $conditions[] = "username = '" . hash('sha1', $parameters["username"] . "'");
-        }
-        if (isset($parameters['email'])) {
-            $conditions[] = "email = '" . hash('sha1', $parameters['email'] . "'");
-        }
-        if (isset($parameters['user_password'])) {
-            $conditions[] = "user_password = '" . hash('sha1', $parameters['user_password'] . "'");
-        }
-        if (isset($parameters['registration_date'])) {
-            $conditions[] = "registration_date = '" . $parameters['registration_date'] . "'";
-        }
-        if (isset($parameters['subscription_type'])) {
-            $conditions[] = "subscription_type = '" . $parameters['subscription_type'] . "'";
-        }
-        if (isset($parameters['preferred_categories'])) {
-            $conditions[] = "preferred_categories = '" . $parameters['preferred_categories'] . "'";
+        foreach ($parameters as $key => $value) {
+            if ($key == "username" || $key == "email" || $key == "user_password") {
+                $hash_value = hash("sha1", $value);
+                $conditions[] = "$key = '$hash_value'";
+            } else {
+                $conditions[] = "$key = '$value'";
+            }
         }
 
         // Combine conditions with AND
         $query .= " " . implode(" AND ", $conditions);
+
+        echo $query;
 
         // Execute the query
         $result = $this->db->query($query);
 
         if ($result) {
             // Fetch the user record
-            $userRecord = $result->fetch_assoc();
-            return $userRecord;
+            $users = array();
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+            return $users;
         } else {
             return null;
         }
@@ -106,6 +98,60 @@ class UserCRUD {
 
     }
 
+    function updateUser($jsonParameters){
+
+        $parameters = json_decode($jsonParameters, true);
+
+        if (empty($parameters)) {
+            return "Invalid JSON format. Please provide both 'criteria' and 'updateData'.";
+        }
+
+        $select_parameters = $parameters["selectParameters"];
+        $update_parameters = $parameters["updateParameters"];
+
+        if (empty($select_parameters) || empty($update_parameters)) {
+            return "Invalid JSON format. Please provide both 'criteria' and 'updateData'.";
+        }
+
+        // Build the base query
+        $query = "UPDATE User";
+
+        // Process parameters to update
+        $updates = [];
+
+        foreach ($update_parameters as $key => $value) {
+            $updates[] = "$key = '$value'";
+        }
+
+        $query .= " SET " . implode(", ", $updates);
+
+        // Process criteria to identify which users to update
+        $conditions = [];
+
+        foreach ($select_parameters as $key => $value) {
+            if ($key == "username" || $key == "email" || $key == "user_password") {
+                $hash_value = hash("sha1", $value);
+                $conditions[] = "$key = '$hash_value'";
+            } else {
+                $conditions[] = "$key = '$value'";
+            }
+        }
+
+        $query .= " WHERE " . implode(" AND ", $conditions);
+
+        // Execute the query
+        $result = $this->db->query($query);
+
+        if ($result) {
+            return "User record(s) updated successfully.";
+        } else {
+            return "Error updating user record(s): " . $this->db->error;
+        }
+
+
+
+    }
+
     function deleteUser($jsonParameters){
 
         $parameters = json_decode($jsonParameters, true);
@@ -116,29 +162,16 @@ class UserCRUD {
 
         $conditions = [];
 
-        if (isset($parameters['id'])){
-            $conditions[] = "id = " . $parameters['id'];
-        }
-        if (isset($parameters["username"])){
-            $conditions[] = "username = '" . hash('sha1', $parameters["username"] . "'");
-        }
-        if (isset($parameters['email'])) {
-            $conditions[] = "email = '" . hash('sha1', $parameters['email'] . "'");
-        }
-        if (isset($parameters['user_password'])) {
-            $conditions[] = "user_password = '" . hash('sha1', $parameters['user_password'] . "'");
-        }
-        if (isset($parameters['registration_date'])) {
-            $conditions[] = "registration_date = '" . $parameters['registration_date'] . "'";
-        }
-        if (isset($parameters['subscription_type'])) {
-            $conditions[] = "subscription_type = '" . $parameters['subscription_type'] . "'";
-        }
-        if (isset($parameters['preferred_categories'])) {
-            $conditions[] = "preferred_categories = '" . $parameters['preferred_categories'] . "'";
+        foreach ($parameters as $key => $value) {
+            if ($key == "username" || $key == "email" || $key == "user_password") {
+                $hash_value = hash("sha1", $value);
+                $conditions[] = "$key = '$hash_value'";
+            } else {
+                $conditions[] = "$key = '$value'";
+            }
         }
 
-        $query = "DELETE FROM users WHERE";
+        $query = "DELETE FROM User WHERE";
 
         // Combine conditions with AND
         $query .= " " . implode(" AND ", $conditions);
@@ -154,13 +187,33 @@ class UserCRUD {
 
     }
 
+    function deleteAll(){
+        $result = $this->db->query("DELETE FROM User");
+
+        if ($result) {
+            return "Records deleted successfully.";
+        } else {
+            return "Error deleting record(s): " . $this->db->error;
+        }
+    }
+
+    
+
 
 }
 
 $userCRUD = new UserCRUD();
-#$userCRUD->createUser("vikstar", "test@yahoo.com", "test1234", "2023-11-28 12:42:38", "pro", "same");
-print_r ($userCRUD->getUsers());
+#print_r ($userCRUD->getUsers());
 #var_dump($userCRUD->getUser('1'))
 
-#var_dump($userCRUD->getUser('{"username":"vikstar"}'))
+#$userCRUD->createUser('{"username":"vikstar","email":"vikstar@yahoo.com","user_password":"vikstarcool12345","registration_date":"2023-11-12 13:35:38","subscription_type":"Pro","preferred_categories":"same"}');
+
+#print_r($userCRUD->getUser('{"username":"vikstar"}'))
+
+#$userCRUD->updateUser('{"selectParameters":{"username":"vikstar"},"updateParameters":{"subscription_type":"Premium"}}');
+$userCRUD->deleteUser('{"username":"vikstar"}');
+print_r ($userCRUD->getUsers());
+
+
+#$userCRUD->deleteAll();
 ?>
