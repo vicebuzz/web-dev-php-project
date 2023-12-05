@@ -36,7 +36,7 @@ class ActivityCRUD {
         $parameters = json_decode($jsonParameters);
 
         // set up query template
-        $query = "SELECT * FROM User WHERE";
+        $query = "SELECT * FROM Activity WHERE";
 
         // intialise conditions array
         $conditions = [];
@@ -123,7 +123,7 @@ class ActivityCRUD {
     public function createActivity($jsonParameters){
 
         // decode json string to get records of a new activity
-        
+
     }
 
     public function updateActivity($jsonParameters){

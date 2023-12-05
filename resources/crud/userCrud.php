@@ -276,7 +276,7 @@ class UserCRUD {
 
     public function getMinSubscriptionDate() {
 
-        // Query to get the minimal activity date
+        // Query to get the minimal subscription date
         $query = "SELECT MIN(subscription_date) AS min_date FROM User";
         $result = $this->db->query($query);
 
@@ -290,7 +290,7 @@ class UserCRUD {
 
     public function getMaxSubscriptionDate() {
 
-        // Query to get the maximum activity date
+        // Query to get the maximum subscription date
         $query = "SELECT MAX(subscription_date) AS max_date FROM User";
         $result = $this->db->query($query);
 
