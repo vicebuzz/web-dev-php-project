@@ -42,24 +42,38 @@ class BookingCRUD {
     function retrieveBookings($jsonParameters){
 
     }
-
+    
     function retrieveUserBookings($jsonParameters){
         
         // decode json string to get user parameters and bookings
-        $jsonParameters = json_decode($jsonParameters, true);
-
-        if (!$jsonParameters){
+        $Parameters = json_decode($jsonParameters, true);
+        //the username
+        if (!$Parameters){
             return "No parameters provided";
         }
 
-        $query = "SELECT * 
-                FROM Booking 
-                INNER JOIN User_Booking ON Booking.id = User_Booking.booking_id 
-                INNER JOIN User ON User_Booking.user_id = User.id
-                WHERE ";
+        $username = hash('sha1',$Parameters["user_username"]);
 
-        $conditions = [];
-        
+        $query = "SELECT Activity.activity_name, Activity.activity_description, Activity.activity_date
+        FROM Activity
+        INNER JOIN Activity_Booking ON Activity.id = Activity_Booking.activity_id
+        INNER JOIN Booking ON Activity_Booking.booking_id = Booking.id
+        INNER JOIN User_Booking ON Booking.id = User_Booking.booking_id
+        INNER JOIN User ON User_Booking.user_id = User.id
+        WHERE User.username = '$username'";
+
+        $result = $this->db->query($query);
+
+        if ($result){
+            $bookings = array();
+            while($row = $result->fetch_assoc()){
+                $bookings[] = $row;
+            }
+            echo"query run";
+        }
+
+
+        return $bookings;
     }
 
     function retrieveBookingsForAnActivity($jsonParameters){
@@ -148,16 +162,34 @@ class BookingCRUD {
 
     }
 
-    function updateBookings($jsonParameters){
 
-    }
+    function deleteBookings($jsonParameters /*booking_id*/){
 
-    function deleteBookings($jsonParameters){
+         //decode json string provided
+         $parameters = json_decode($jsonParameters, true);
 
-    }
-
-
+         // if empty parameters, return 
+         if (!$parameters) {
+             return "No parameters provided.";
+         }
+ 
+         $query = "DELETE FROM Booking WHERE id=";
+         $query .= $parameters["id"];
+             
+ 
+         // Execute the query
+         $result = $this->db->query($query);
+ 
+         if ($result) {
+             return "Record(s) deleted successfully.";
+         } else {
+             return "Error deleting record(s): " . $this->db->error;
+         }
+ 
+     }
 }
+
 $bookingCRUD = new BookingCRUD();
-$bookingCRUD->createNewBooking('{"userParameters":{"id":7},"activityParameters":{"id":2}}');
+//$bookingCRUD->createNewBooking('{"userParameters":{"id":7},"activityParameters":{"id":2}}');
+print_r($bookingCRUD->retrieveUserBookings('{"user_username": "vikstar"}'));
 ?>
