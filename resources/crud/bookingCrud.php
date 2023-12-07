@@ -162,16 +162,33 @@ class BookingCRUD {
 
     }
 
-    function updateBookings($jsonParameters){
 
-    }
+    function deleteBookings($jsonParameters /*booking_id*/){
 
-    function deleteBookings($jsonParameters){
+         //decode json string provided
+         $parameters = json_decode($jsonParameters, true);
 
-    }
-
-
+         // if empty parameters, return 
+         if (!$parameters) {
+             return "No parameters provided.";
+         }
+ 
+         $query = "DELETE FROM Booking WHERE id=";
+         $query .= $parameters["id"];
+             
+ 
+         // Execute the query
+         $result = $this->db->query($query);
+ 
+         if ($result) {
+             return "Record(s) deleted successfully.";
+         } else {
+             return "Error deleting record(s): " . $this->db->error;
+         }
+ 
+     }
 }
+
 $bookingCRUD = new BookingCRUD();
 //$bookingCRUD->createNewBooking('{"userParameters":{"id":7},"activityParameters":{"id":2}}');
 print_r($bookingCRUD->retrieveUserBookings('{"user_username": "vikstar"}'));
