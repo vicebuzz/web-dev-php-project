@@ -129,7 +129,12 @@ class UserCRUD {
         $updates = [];
 
         foreach ($update_parameters as $key => $value) {
-            $updates[] = "$key = '$value'";
+            if ($key == "username" || $key == "email" || $key == "user_password") {
+                $hash_value = hash("sha1", $value);
+                $conditions[] = "$key = '$hash_value'";
+            } else {
+                $conditions[] = "$key = '$value'";
+            }
         }
 
         $query .= " SET " . implode(", ", $updates);
@@ -307,12 +312,12 @@ class UserCRUD {
 }
 
 $userCRUD = new UserCRUD();
-print_r ($userCRUD->getUsers());
+#print_r ($userCRUD->getUsers());
 #var_dump($userCRUD->getUser('1'))
 
 #$userCRUD->createUser('{"username":"vikstar","email":"vikstar@yahoo.com","user_password":"vikstarcool12345","registration_date":"2023-11-12 13:35:38","subscription_type":"Pro","preferred_categories":"same","admin":1}');
 
-#print_r($userCRUD->getUser('{"username":"vikstar"}'))
+print_r($userCRUD->getUser('{"username":"vikstar", "user_password":"vikstarcool12345"}'))
 
 #$userCRUD->updateUser('{"selectParameters":{"username":"vikstar"},"updateParameters":{"admin":1}}');
 #$userCRUD->deleteUser('{"username":"vikstar"}');

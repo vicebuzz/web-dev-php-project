@@ -120,21 +120,135 @@ class ActivityCRUD {
         }
     }
 
-    public function createActivity($jsonParameters){
+    public function updateActivity($jsonParameters){
 
-        // decode json string to get records of a new activity
+        //decode json string provided
+        $parameters = json_decode($jsonParameters, true);
+
+        // if parameters are empty return error statement
+        if (empty($parameters)) {
+            return "Invalid JSON format. Please provide both 'criteria' and 'updateData'.";
+        }
+
+        // split json into select parameters and update parameters
+        $select_parameters = $parameters["selectParameters"];
+        $update_parameters = $parameters["updateParameters"];
+
+        // if those parameters are empty return error statement
+        if (empty($select_parameters) || empty($update_parameters)) {
+            return "Invalid JSON format. Please provide both 'criteria' and 'updateData'.";
+        }
+
+        // Build the base query
+        $query = "UPDATE Activity";
+
+        // Process parameters to update
+        $updates = [];
+
+        foreach ($update_parameters as $key => $value) {
+            $updates[] = "$key = '$value'";
+        }
+
+        $query .= " SET " . implode(", ", $updates);
+
+        // Process criteria to identify which users to update
+        $conditions = [];
+
+        foreach ($select_parameters as $key => $value) {
+            $conditions[] = "$key = '$value'";
+        }
+
+        // put anupdate query together
+        $query .= " WHERE " . implode(" AND ", $conditions);
+
+        // Execute the query
+        $result = $this->db->query($query);
+
+        // error checking
+        if ($result) {
+            return "Activity record(s) updated successfully.";
+        } else {
+            return "Error updating activities record(s): " . $this->db->error;
+        }
+
+
 
     }
 
-    public function updateActivity($jsonParameters){
+    public function createActivity($jsonParameters){
 
         // decode json strings to get parameters
         $parameters = json_decode($jsonParameters, true);
 
+        // get parateters from the string
+        $activity_name = $parameters["activity_name"];
+        $activity_description = $parameters["activity_description"];
+        $places_available = $parameters["places_available"];
+        $activity_date = $parameters["activity_date"];
 
+        $query = "INSERT INTO Activity (
+            activity_name, 
+            activity_description, 
+            places_available, 
+            activity_date
+            ) 
+            VALUES (
+                '$activity_name', 
+                '$activity_description', 
+                '$places_available', 
+                '$activity_date')";
+        
+        
+        $result = $this->db->query($query);
+
+        if ($result){
+            return 1;
+        } else{
+            return "Error creating creating new activity: " . $this->db->error;
+        }
+    }
+
+    public function deleteActivity($jsonParameters){
+
+        //decode json string provided
+        $parameters = json_decode($jsonParameters, true);
+
+        // if empty parameters, return 
+        if (empty($parameters)) {
+            return "No parameters provided.";
+        }
+
+        $conditions = [];
+
+        foreach ($parameters as $key => $value) {
+            $conditions[] = "$key = '$value'";
+        }
+
+        $query = "DELETE FROM Activity WHERE";
+
+        // Combine conditions with AND
+        $query .= " " . implode(" AND ", $conditions);
+
+        // Execute the query
+        $result = $this->db->query($query);
+
+        if ($result) {
+            return "Record(s) deleted successfully.";
+        } else {
+            return "Error deleting record(s): " . $this->db->error;
+        }
 
     }
 
     
 }
+
+$activityCRUD = new ActivityCRUD();
+#$activityCRUD->updateActivity('{"selectParameters":{"activity_name":"Tennis"},"updateParameters":{"activity_name":"Swimming"}}');
+$activityCRUD->deleteActivity('{"activity_name":"Swimming"}');
+print_r($activityCRUD->getAllActivities())
+#$activityCRUD->createActivity('{"activity_name":"Tennis","activity_description":"test desc","places_available":30,"activity_date":"2023-12-10 12:00:00"}');
+#print_r($activityCRUD->getActivitiesByPeriod('{"startDate":"2023-12-01 12:00:00"}'))
+#print_r($activityCRUD->getActivities('{"activity_name":"Tennis"}'))
+
 ?>
