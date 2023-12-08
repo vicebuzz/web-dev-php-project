@@ -53,7 +53,27 @@ class ActivityCRUD {
         $result = $this->db->query($query);
 
         if ($result) {
-            // Fetch the user record
+            // Fetch the activity record
+            $activities = array();
+            while ($row = $result->fetch_assoc()) {
+                $activities[] = $row;
+            }
+            return $activities;
+        } else {
+            return null;
+        }
+
+    }
+
+    public function searchActivities($searchQuery){
+        
+        // create query
+        $query = "SELECT * FROM Activity WHERE activity_name LIKE %$searchQuery% OR activity_description LIKE %$searchQuery%";
+
+        $result = $this->db->query($query);
+
+        if ($result) {
+            // Fetch the activity record
             $activities = array();
             while ($row = $result->fetch_assoc()) {
                 $activities[] = $row;
