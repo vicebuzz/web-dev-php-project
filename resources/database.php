@@ -10,7 +10,8 @@ class DBConnect {
 
 	function loadData() {
 
-		$jsonFilePath = './config.json';
+		$jsonFilePath = '.../config.json';
+        /*
 		if (file_exists($jsonFilePath)) {
 
 			$jsonContent = file_get_contents($jsonFilePath);
@@ -25,7 +26,16 @@ class DBConnect {
 		 
 		} else {
 			echo "JSON file not found.";
-		}
+		}*/
+        $jsonContent = file_get_contents($jsonFilePath);
+
+        $data = json_decode($jsonContent, true)['db_info'];
+
+        $this->host = $data['host'];
+        $this->port = intval($data['port']);
+        $this->user = $data['user'];
+        $this->password = $data['password'];
+        $this->database = $data['dbname'];
 	}
 
 	function connect() {

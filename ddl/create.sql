@@ -35,7 +35,6 @@ CREATE TABLE BookingToActivivy(
     bookingID INTEGER(255) AUTO_INCREMENT,
     activityID INTEGER(255),
     PRIMARY KEY (bookingID, activityID),
-    
     FOREIGN KEY (bookingID) REFERENCES Booking(bookingID),
     FOREIGN KEY (activityID) REFERENCES Activity(activityID)
 );

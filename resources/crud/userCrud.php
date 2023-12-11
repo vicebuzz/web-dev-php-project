@@ -1,5 +1,5 @@
 <?php
-require_once './resources/database.php';
+require_once '../database.php';
 
 class UserCRUD {
 
@@ -39,7 +39,7 @@ class UserCRUD {
 
         // go through json provided and see what conditions are supplied
         foreach ($parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password") {
+            if ($key == "username" || $key == "email" || $key == "user_password" || $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
@@ -73,12 +73,13 @@ class UserCRUD {
         $username_hash = hash('sha1', $parameters["username"]);
         $email_hash = hash('sha1', $parameters["email"]);
         $user_password_hash = hash('sha1', $parameters["user_password"]);
+        $phoneNumber_hash = hash('sha1',$parameters["phoneNumber"]);
 
         // get the rest of parameters
         $registration_date = $parameters["registration_date"];
         $subscription_type = $parameters["subscription_type"];
         $preferred_categories = $parameters["preferred_categories"];
-        $isadmin = $parameters["admin"];
+        $isAdmin = $parameters["isAdmin"];
 
         // create and execute a query
         $sql = "INSERT INTO Users (
@@ -86,20 +87,25 @@ class UserCRUD {
             email, 
             user_password, 
             registration_date, 
-            subscription_type, 
-            preferred_categories,
-            admin) 
+            phoneNumber,
+            isAdmin) 
             VALUES (
                 '$username_hash', 
                 '$email_hash', 
                 '$user_password_hash', 
-                '$registration_date', 
-                '$subscription_type', 
-                '$preferred_categories',
-                '$isadmin')";
+                '$registration_date',
+                '$phoneNumber_hash',
+                0
+                )";
 
         #echo $sql;
-        $this->db->query($sql);
+        $result = $this->db->query($sql);
+
+        if ($result) {
+            return "New user registered.";
+        } else {
+            return "Error registering a new user " . $this->db->error;
+        }
 
     }
 
@@ -129,7 +135,7 @@ class UserCRUD {
         $updates = [];
 
         foreach ($update_parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password") {
+            if ($key == "username" || $key == "email" || $key == "user_password"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
@@ -143,7 +149,7 @@ class UserCRUD {
         $conditions = [];
 
         foreach ($select_parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password") {
+            if ($key == "username" || $key == "email" || $key == "user_password"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
@@ -181,7 +187,7 @@ class UserCRUD {
         $conditions = [];
 
         foreach ($parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password") {
+            if ($key == "username" || $key == "email" || $key == "user_password"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
@@ -228,7 +234,7 @@ class UserCRUD {
         $conditions = [];
 
         foreach ($parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password") {
+            if ($key == "username" || $key == "email" || $key == "user_password"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
