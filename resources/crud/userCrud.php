@@ -21,7 +21,7 @@ class UserCRUD {
         // fill the return array up
         while ($row = $result->fetch_assoc()) {
             $users[] = $row;
-        }   
+        }
         // return filled up array
         return $users;
     }
@@ -30,16 +30,16 @@ class UserCRUD {
 
         //decode json string provided
         $parameters = json_decode($jsonParameters, true);
-        
+        print_r($parameters);
         // set up query template
-        $query = "SELECT * FROM Users WHERE";
+        $query = "SELECT * FROM Users";
         
         // initialise conditions array
         $conditions = [];
 
         // go through json provided and see what conditions are supplied
         foreach ($parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password" || $key =="phoneNumber") {
+            if ($key == "username" || $key == "email" || $key == "userPassword" || $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
@@ -48,7 +48,7 @@ class UserCRUD {
         }
 
         // Combine conditions with AND
-        $query .= " " . implode(" AND ", $conditions);
+        $query .= " WHERE " . implode(" AND ", $conditions);
 
         // Execute the query
         $result = $this->db->query($query);
@@ -77,16 +77,16 @@ class UserCRUD {
 
         // get the rest of parameters
         $registration_date = $parameters["registration_date"];
-        $subscription_type = $parameters["subscription_type"];
-        $preferred_categories = $parameters["preferred_categories"];
+       // $subscription_type = $parameters["subscription_type"];
+       // $preferred_categories = $parameters["preferred_categories"];
         $isAdmin = $parameters["isAdmin"];
-
+        print_r($parameters);
         // create and execute a query
         $sql = "INSERT INTO Users (
             username, 
             email, 
-            user_password, 
-            registration_date, 
+            userPassword, 
+            registrationDate, 
             phoneNumber,
             isAdmin) 
             VALUES (
@@ -195,10 +195,10 @@ class UserCRUD {
             }
         }
 
-        $query = "DELETE FROM Users WHERE";
+        $query = "DELETE FROM Users";
 
         // Combine conditions with AND
-        $query .= " " . implode(" AND ", $conditions);
+        $query .= " WHERE " . implode(" AND ", $conditions);
 
         // Execute the query
         $result = $this->db->query($query);
@@ -229,7 +229,7 @@ class UserCRUD {
             return "No parameters provided";
         }
 
-        $query = "SELECT admin FROM Users";
+        $query = "SELECT isAdmin FROM Users";
 
         $conditions = [];
 
@@ -258,7 +258,8 @@ class UserCRUD {
         }
     }
 
-    function getUsersPeriodSubscriptionDate($jsonParameters){
+
+    function getUsersPeriodRegistrationDate($jsonParameters){
 
         // decode json string
         $parameters = json_decode($jsonParameters, true);
@@ -268,7 +269,7 @@ class UserCRUD {
         $endDate = isset($parameters['endDate']) ? $parameters['endDate'] : $this->getMaxSubscriptionDate();
 
         // Build the query
-        $query = "SELECT * FROM Users WHERE subscription_date BETWEEN '$startDate' AND '$endDate'";
+        $query = "SELECT * FROM Users WHERE registrationDate BETWEEN '$startDate' AND '$endDate'";
 
         // Execute the query
         $result = $this->db->query($query);
@@ -285,10 +286,10 @@ class UserCRUD {
         }
     }
 
-    public function getMinSubscriptionDate() {
+    public function getMinRegistrationDate() {
 
         // Query to get the minimal subscription date
-        $query = "SELECT MIN(subscription_date) AS min_date FROM Users";
+        $query = "SELECT MIN(registrationDate) AS min_date FROM Users";
         $result = $this->db->query($query);
 
         if ($result) {
@@ -299,10 +300,10 @@ class UserCRUD {
         }
     }
 
-    public function getMaxSubscriptionDate() {
+    public function getMaxRegistrationDate() {
 
         // Query to get the maximum subscription date
-        $query = "SELECT MAX(subscription_date) AS max_date FROM Users";
+        $query = "SELECT MAX(registrationDate) AS max_date FROM Users";
         $result = $this->db->query($query);
 
         if ($result) {

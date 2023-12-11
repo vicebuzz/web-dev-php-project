@@ -15,7 +15,7 @@
     <h1 class="website-title">FreeSpace</h1>
     <div class="login-section">
       <h2 class="login-heading">Enter Details</h2>
-      <form class="login-form" action="login_process.php" method="POST">
+      <form class="login-form" action="../resources/user-inputs/login_process.php" method="POST">
         <input type="text" class="input-field" placeholder="Username" name="username" required>
         <input type="password" class="input-field" placeholder="Password" name="password" required>
         <button type="submit" class="login-button">Login</button>
