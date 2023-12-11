@@ -1,0 +1,395 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #02376b;
+  color: #fff;
+  position: relative;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  background-image: linear-gradient(#059af0, #02376b);
+  position: relative;
+  z-index: 1;
+}
+
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+}
+
+.title {
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 36px;
+  color: #fff;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-left: 20px;
+}
+
+nav ul li a {
+  font-size: 26px;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Bubblegum Sans', cursive;
+}
+
+.welcome-section {
+  text-align: center;
+  padding: 150px 0;
+  background: transparent;
+  color: #fff;
+  position: relative;
+  z-index: 0;
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.welcome-heading {
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 100px;
+  margin-bottom: 20px;
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.welcome-text {
+  font-size: 20px;
+  margin-bottom: 40px;
+  font-family: 'Bubblegum Sans', cursive;
+}
+
+.my-desk-section {
+  padding: 100px 20px; 
+  background: linear-gradient(#02376b,#01152b);
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.my-desk-heading {
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.dashboard {
+  display: flex;
+  height: auto; 
+  border-radius: 15px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f5f5f5, #e6e6e6); 
+  padding: 20px; 
+  margin-top: 20px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+
+.sidebar {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background: linear-gradient(-90deg, #059af0, #02376b);
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-width: fit-content;
+}
+
+.sidebar-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar a {
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 20px;
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 15px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.sidebar a:hover {
+  color: #059af0;
+  background-color: #f2f2f2;
+}
+
+.sidebar a.active {
+  background-color: #fff;
+  color: #02376b;
+  border-color: #059af0;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.content h2 {
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 40px;
+  margin-top: 1%;
+  color: #059af0;
+}
+
+.content p {
+  font-size: 16px;
+  font-family: 'Bubblegum Sans', cursive;
+  color: #333; 
+}
+
+/* Summary section styles */
+.summary-section {
+  padding: 100px 0;
+  background: #02376b;
+  color: #fff;
+}
+
+.register-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #059af0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-btn:hover {
+  background-color: #02376b;
+}
+
+.profile-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  color: #333; 
+}
+
+label {
+  font-family: 'Bubblegum Sans', cursive;
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333; 
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.update-profile-btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #059af0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.update-profile-btn:hover {
+  background-color: #02376b;
+}
+
+.activities-heading {
+  background: linear-gradient(-90deg, #059af0, #02376b);
+  padding: 10px;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.activities-section {
+  clip-path: none;
+  margin-top: 30px;
+  padding: 30px
+}
+.activity-details {
+  padding: 10px; 
+}
+
+.activity-details p{
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 12px; 
+  border-radius: 5px; 
+}
+
+.admin-form-card input[type="text"],
+.admin-form-card input[type="email"],
+.admin-form-card input[type="password"],
+.admin-form-card input[type="date"],
+.admin-form-card input[type="number"],
+.admin-form-card textarea {
+  width: calc(100% - 12px);
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-family: 'Arial', sans-serif; 
+}
+
+.admin-form-card label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.remove-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #a83832;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+  background-color: #751f1b;
+}
+
+@media only screen and (max-width: 768px) {
+  
+  .title {
+    font-size: 28px;
+  }
+
+  nav ul li {
+    margin-left: 10px;
+  }
+
+  nav ul li a {
+    font-size: 18px;
+  }
+
+  .welcome-section {
+    padding: 100px 0;
+  }
+
+  .welcome-heading {
+    font-size: 60px;
+  }
+
+  .welcome-text {
+    font-size: 16px;
+  }
+
+  .my-desk-section {
+    padding: 80px 10px;
+  }
+
+  .my-desk-heading {
+    font-size: 36px;
+  }
+
+  .dashboard {
+    padding: 10px;
+  }
+
+  .sidebar {
+    padding: 10px;
+    min-width: unset;
+  }
+
+  .sidebar a {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .content h2 {
+    font-size: 32px;
+  }
+
+  .content p {
+    font-size: 14px;
+  }
+
+  .summary-section {
+    padding: 80px 0;
+  }
+
+  .register-btn,
+  .update-profile-btn,
+  .remove-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .profile-form,
+  .admin-form-card input,
+  .admin-form-card textarea {
+    font-size: 10px; 
+    max-width: 300px;
+  }
+
+  .admin-form-card textarea[name="activity-description"] {
+    width: calc(100% - 20px);
+    max-width: 100%;
+    padding: 8px;
+    font-size: 12px;
+    resize: vertical; 
+  }
+}
+
+label {
+  border-radius: 5px;
+  padding: 10px;
+  color: #fff;
+  background: linear-gradient(-90deg, #059af0, #02376b);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  font-family: 'Bubblegum Sans', cursive;
+}
+
+.image-preview-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#image-preview {
+  max-width: 100%;
+  max-height: 300px; 
+  display: block;
+  margin: 0 auto; 
+}
