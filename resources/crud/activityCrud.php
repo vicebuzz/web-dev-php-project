@@ -36,7 +36,7 @@ class ActivityCRUD {
         $parameters = json_decode($jsonParameters);
 
         // set up query template
-        $query = "SELECT * FROM Activity WHERE";
+        $query = "SELECT * FROM Activity";
 
         // intialise conditions array
         $conditions = [];
@@ -47,7 +47,7 @@ class ActivityCRUD {
         }
 
         // Combine conditions with AND
-        $query .= " " . implode(" AND ", $conditions);
+        $query .= " WHERE " . implode(" AND ", $conditions);
 
         // Execute the query
         $result = $this->db->query($query);
@@ -95,7 +95,7 @@ class ActivityCRUD {
         $endDate = isset($parameters['endDate']) ? $parameters['endDate'] : $this->getMaxActivityDate();
 
         // Build the query
-        $query = "SELECT * FROM Activity WHERE activity_date BETWEEN '$startDate' AND '$endDate'";
+        $query = "SELECT * FROM Activity WHERE activityDate BETWEEN '$startDate' AND '$endDate'";
 
         // Execute the query
         $result = $this->db->query($query);
@@ -115,7 +115,7 @@ class ActivityCRUD {
     public function getMinActivityDate() {
 
         // Query to get the minimal activity date
-        $query = "SELECT MIN(activity_date) AS min_date FROM Activity";
+        $query = "SELECT MIN(activityDate) AS min_date FROM Activity";
         $result = $this->db->query($query);
 
         if ($result) {
@@ -129,7 +129,7 @@ class ActivityCRUD {
     public function getMaxActivityDate() {
 
         // Query to get the maximum activity date
-        $query = "SELECT MAX(activity_date) AS max_date FROM Activity";
+        $query = "SELECT MAX(activityDate) AS max_date FROM Activity";
         $result = $this->db->query($query);
 
         if ($result) {
@@ -207,10 +207,10 @@ class ActivityCRUD {
         $activity_date = $parameters["activity_date"];
 
         $query = "INSERT INTO Activity (
-            activity_name, 
-            activity_description, 
-            places_available, 
-            activity_date
+            activityName, 
+            activityDescription, 
+            placesAvailable, 
+            activityDate
             ) 
             VALUES (
                 '$activity_name', 
@@ -244,10 +244,10 @@ class ActivityCRUD {
             $conditions[] = "$key = '$value'";
         }
 
-        $query = "DELETE FROM Activity WHERE";
+        $query = "DELETE FROM Activity";
 
         // Combine conditions with AND
-        $query .= " " . implode(" AND ", $conditions);
+        $query .= " WHERE " . implode(" AND ", $conditions);
 
         // Execute the query
         $result = $this->db->query($query);

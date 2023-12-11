@@ -119,9 +119,12 @@
           </div>
         </div>
       </section>
+
+
+
       <section class="activities-section user-account-section">
         <h2 class="activities-heading">Change Account Details</h2>
-        <form class="profile-form" id="update-profile-form">
+        <form class="profile-form"  action="../resources/user-inputs/update_user_info_process.php" id="update-profile-form" method = post>
           <div class="form-group">
             <label for="original-email">Original Email Address:</label>
             <input type="email" id="original-email" name="original-email" placeholder="Enter your original email" required>

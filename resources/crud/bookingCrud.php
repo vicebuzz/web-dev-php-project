@@ -54,13 +54,13 @@ class BookingCRUD {
 
         $username = hash('sha1',$Parameters["user_username"]);
 
-        $query = "SELECT Activity.activity_name, Activity.activity_description, Activity.activity_date
+        $query = "SELECT Activity.activityName, Activity.activityDescription, Activity.activityDate
         FROM Activity
-        INNER JOIN Activity_Booking ON Activity.id = Activity_Booking.activity_id
-        INNER JOIN Booking ON Activity_Booking.booking_id = Booking.id
-        INNER JOIN User_Booking ON Booking.id = User_Booking.booking_id
-        INNER JOIN User ON User_Booking.user_id = User.id
-        WHERE User.username = '$username'";
+        INNER JOIN BookingToActivivy ON Activity.activityID = BookingToActivivy.activityID
+        INNER JOIN Booking ON BookingToActivivy.bookingID = Booking.bookingID
+        INNER JOIN UserToBooking ON Booking.bookingID = UserToBooking.bookingID
+        INNER JOIN Users ON UserToBooking.userID = Users.userID
+        WHERE Users.username = '$username'";
 
         $result = $this->db->query($query);
 
@@ -118,12 +118,10 @@ class BookingCRUD {
 
         // create a new booking record
         $query = "INSERT INTO Booking (
-            date_booked, 
-            number_of_places_booked
+            bookingCreated, 
             ) 
             VALUES (
                 '$localActivityDate',
-                1
             )";
         
         $result = $this->db->query($query);
@@ -135,9 +133,9 @@ class BookingCRUD {
         }
 
         // create a link table record for activity-booking
-        $query = "INSERT INTO Activity_Booking (
-            activity_id, 
-            booking_id
+        $query = "INSERT INTO BookingToActivivy (
+            activityID, 
+            bookingID
             ) 
             VALUES (
                 '$localActivityID',
@@ -147,9 +145,9 @@ class BookingCRUD {
         $this->db->query($query);
 
         // create a link table record for user-booking
-        $query = "INSERT INTO User_Booking (
-            user_id, 
-            booking_id
+        $query = "INSERT INTO UserToBooking (
+            userID, 
+            bookingID
             ) 
             VALUES (
                 '$localUserID',
@@ -173,8 +171,8 @@ class BookingCRUD {
              return "No parameters provided.";
          }
  
-         $query = "DELETE FROM Booking WHERE id=";
-         $query .= $parameters["id"];
+         $query = "DELETE FROM Booking";
+         $query .= " WHERE id=".$parameters["id"];
              
  
          // Execute the query

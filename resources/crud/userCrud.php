@@ -135,7 +135,7 @@ class UserCRUD {
         $updates = [];
 
         foreach ($update_parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password"|| $key =="phoneNumber") {
+            if ($key == "username" || $key == "email" || $key == "userPassword"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
@@ -149,7 +149,7 @@ class UserCRUD {
         $conditions = [];
 
         foreach ($select_parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password"|| $key =="phoneNumber") {
+            if ($key == "username" || $key == "email" || $key == "userPassword"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
@@ -187,7 +187,7 @@ class UserCRUD {
         $conditions = [];
 
         foreach ($parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password"|| $key =="phoneNumber") {
+            if ($key == "username" || $key == "email" || $key == "userPassword"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
@@ -234,7 +234,7 @@ class UserCRUD {
         $conditions = [];
 
         foreach ($parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "user_password"|| $key =="phoneNumber") {
+            if ($key == "username" || $key == "email" || $key == "userPSassword"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
