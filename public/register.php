@@ -5,7 +5,7 @@
   <title>FreeSpace - Login</title>
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="styles/login.css">
 </head>
 <body>
   <div class="background-container">

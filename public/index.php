@@ -5,7 +5,7 @@
   <title>FreeSpace</title>
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
   <header>
@@ -47,19 +47,19 @@
       <div class="activity-cards">
         <!-- Activity cards -->
         <div class="activity-card">
-          <img src="gym.jpg" alt="Activity 1">
+          <img src="img/gym.jpg" alt="Activity 1">
           <h3>Tread Marathon</h3>
-          <p>Join our lead coach Joshua in the treck of a life-time, on our treadmills!</p>
+          <p>Join our lead coach Joshua during the track of your life-time, on our treadmills!</p>
         </div>
         <div class="activity-card">
-          <img src="swimming.jpg" alt="Activity 2">
+          <img src="img/swimming.jpg" alt="Activity 2">
           <h3>Swimming</h3>
-          <p>Join a two hour swimming session with family, friends and anyone you want to bring!</p>
+          <p>Join a two-hour swimming session with family, friends and anyone you want to bring!</p>
         </div>
         <div class="activity-card">
-          <img src="tennis.jpg" alt="Activity 3">
+          <img src="img/tennis.jpg" alt="Activity 3">
           <h3>Tennis</h3>
-          <p>Join a two hour tennis match against some of our best and brightest. Join our chill coach Al with the event!</p>
+          <p>Join a two-hour tennis match against some of our best and brightest. Join our chill coach Al with the event!</p>
         </div>
         <!-- Add more activity cards as needed -->
       </div>

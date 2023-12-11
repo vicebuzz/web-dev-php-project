@@ -5,8 +5,8 @@
   <title>FreeSpace</title>
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="manage.css"> <!-- Include manage.css for dashboard styles -->
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/manage.css"> <!-- Include manage.css for dashboard styles -->
 </head>
 <body>
   <header>
@@ -21,7 +21,7 @@
     </div>
     <div class="welcome-section">
       <h2 class="welcome-heading">Welcome User</h2>
-      <p class="welcome-text">Your local dashboard page for your activites, booking new activties and adjusting your personal information!</p>
+      <p class="welcome-text">Your local dashboard page for your activities, booking new activities and adjusting your personal information!</p>
       <div class="centered-icons">
         <!-- Place your centered icons here -->
       </div>
@@ -40,7 +40,7 @@
         <div class="activity-cards">
           <!-- Activity cards dynamically added using PHP -->
           <div class="activity-card">
-            <img src="gym.jpg" alt="Activity 1">
+            <img src="img/gym.jpg" alt="Activity 1">
             <h3>Tread Marathon</h3>
             <p>Join our lead coach Joshua in the trek of a lifetime, on our treadmills!</p>
             <div class="activity-details">
@@ -54,7 +54,7 @@
 
           <!-- Activity card 2 -->
           <div class="activity-card">
-            <img src="swimming.jpg" alt="Activity 2">
+            <img src="img/swimming.jpg" alt="Activity 2">
             <h3>Swimming Session</h3>
             <p>Join a two-hour swimming session with family and friends!</p>
             <div class="activity-details">
@@ -69,7 +69,7 @@
           <!-- Add more activity cards -->
           <!-- Activity card 3 -->
           <div class="activity-card">
-            <img src="yoga.jpg" alt="Activity 3">
+            <img src="img/yoga.jpg" alt="Activity 3">
             <h3>Yoga Class</h3>
             <p>Relax your mind and body in our yoga session led by experienced instructors.</p>
             <div class="activity-details">
@@ -83,7 +83,7 @@
 
           <!-- Activity card 4 -->
           <div class="activity-card">
-            <img src="boxing.jpg" alt="Activity 4">
+            <img src="img/boxing.jpg" alt="Activity 4">
             <h3>Boxing Training</h3>
             <p>Get fit and learn boxing techniques in our intensive training sessions!</p>
             <div class="activity-details">
@@ -106,7 +106,7 @@
         <div class="activity-cards">
           <!-- Booked activity cards dynamically added using PHP -->
           <div class="activity-card">
-            <img src="boxing.jpg" alt="Activity 4">
+            <img src="img/boxing.jpg" alt="Activity 4">
             <h3>Boxing Training</h3>
             <p>Get fit and learn boxing techniques in our intensive training sessions!</p>
             <div class="activity-details">
@@ -192,6 +192,8 @@
           <button type="submit" class="update-profile-btn">Update Profile</button>
         </form>
       </section>
+    </div>
+  </main>
 
 
 
@@ -203,6 +205,6 @@
     </div>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-  <script src="manage.js"></script>
+  <script src="js/manage.js"></script>
 </body>
 </html>
