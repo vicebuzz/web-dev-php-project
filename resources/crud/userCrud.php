@@ -14,7 +14,7 @@ class UserCRUD {
 
     function getUsers() {
         // query to select all users records
-        $sql = 'SELECT * FROM User';
+        $sql = 'SELECT * FROM Users';
         // fetch result and create an empty array
         $result = $this->db->query($sql);
         $users = array();
@@ -32,7 +32,7 @@ class UserCRUD {
         $parameters = json_decode($jsonParameters, true);
         
         // set up query template
-        $query = "SELECT * FROM User WHERE";
+        $query = "SELECT * FROM Users WHERE";
         
         // initialise conditions array
         $conditions = [];
@@ -81,7 +81,7 @@ class UserCRUD {
         $isadmin = $parameters["admin"];
 
         // create and execute a query
-        $sql = "INSERT INTO User (
+        $sql = "INSERT INTO Users (
             username, 
             email, 
             user_password, 
@@ -189,7 +189,7 @@ class UserCRUD {
             }
         }
 
-        $query = "DELETE FROM User WHERE";
+        $query = "DELETE FROM Users WHERE";
 
         // Combine conditions with AND
         $query .= " " . implode(" AND ", $conditions);
@@ -206,7 +206,7 @@ class UserCRUD {
     }
 
     function deleteAll(){
-        $result = $this->db->query("DELETE FROM User");
+        $result = $this->db->query("DELETE FROM Users");
 
         if ($result) {
             return "Records deleted successfully.";
@@ -223,7 +223,7 @@ class UserCRUD {
             return "No parameters provided";
         }
 
-        $query = "SELECT admin FROM User";
+        $query = "SELECT admin FROM Users";
 
         $conditions = [];
 
@@ -262,7 +262,7 @@ class UserCRUD {
         $endDate = isset($parameters['endDate']) ? $parameters['endDate'] : $this->getMaxSubscriptionDate();
 
         // Build the query
-        $query = "SELECT * FROM User WHERE subscription_date BETWEEN '$startDate' AND '$endDate'";
+        $query = "SELECT * FROM Users WHERE subscription_date BETWEEN '$startDate' AND '$endDate'";
 
         // Execute the query
         $result = $this->db->query($query);
@@ -282,7 +282,7 @@ class UserCRUD {
     public function getMinSubscriptionDate() {
 
         // Query to get the minimal subscription date
-        $query = "SELECT MIN(subscription_date) AS min_date FROM User";
+        $query = "SELECT MIN(subscription_date) AS min_date FROM Users";
         $result = $this->db->query($query);
 
         if ($result) {
@@ -296,7 +296,7 @@ class UserCRUD {
     public function getMaxSubscriptionDate() {
 
         // Query to get the maximum subscription date
-        $query = "SELECT MAX(subscription_date) AS max_date FROM User";
+        $query = "SELECT MAX(subscription_date) AS max_date FROM Users";
         $result = $this->db->query($query);
 
         if ($result) {
