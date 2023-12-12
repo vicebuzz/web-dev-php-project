@@ -201,22 +201,32 @@ class ActivityCRUD {
         $parameters = json_decode($jsonParameters, true);
 
         // get parateters from the string
-        $activity_name = $parameters["activity_name"];
-        $activity_description = $parameters["activity_description"];
-        $places_available = $parameters["places_available"];
-        $activity_date = $parameters["activity_date"];
+        $activity_name = $parameters["activityName"];
+        $activity_description = $parameters["activityDescription"];
+        $places_available = $parameters["placesAvailable"];
+        $activity_date = $parameters["activityDate"];
+        $activityPrice = $parameters["activityPrice"];
+        $activityRoom = $parameters["activityRoom"];
+        $activityImage = $parameters["activityImage"];
+
 
         $query = "INSERT INTO Activity (
             activityName, 
             activityDescription, 
             placesAvailable, 
-            activityDate
+            activityDate,
+            price,
+            room,
+            image
             ) 
             VALUES (
                 '$activity_name', 
                 '$activity_description', 
                 '$places_available', 
-                '$activity_date')";
+                '$activity_date'
+                '$activityPrice',
+                '$activityRoom',
+                '$activityImage')";
         
         
         $result = $this->db->query($query);
