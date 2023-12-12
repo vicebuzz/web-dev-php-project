@@ -1,33 +1,32 @@
 <?php
 
 require_once "../resources/crud/bookingCrud.php";
-
 $bookingCRUD = new BookingCRUD();
-
 session_start();
-
-if (!isset($_SESSION['user_id'])) {
+/* (!isset($_SESSION['user_id'])) {
   header("Location: login.php"); // Redirect to login page if not logged in
   exit();
 }
+*/
 
 // Retrieve the username from the session
 $username = $_SESSION['username'];
 
 // Retrieve user bookings
-$bookings = $bookingCRUD->retrieveUserBookings(json_encode(array("user_id"=>$_SESSION['user_id'])));
-
+$bookings = $bookingCRUD->retrieveUserBookings(json_encode(array("userID"=>$_SESSION['userID'])));
+/*
 if ($bookings){
-  echo "<ul>";
-  foreach($bookings as $booking){
-    $activity_name = $booking['activityName'];
-    $activity_desc = $booking['activityDescription'];
-    $actitivityDate = $booking['activityDate'];
-    echo '<li><p>' . $activity_name . '</p><p>' . $activity_desc . '</p><p> Date: ' . $actitivityDate . '</p>';
-  }
+    echo "<ul>";
+    foreach($bookings as $booking){
+        $activity_name = $booking['activityName'];
+        $activity_desc = $booking['activityDescription'];
+        $actitivityDate = $booking['activityDate'];
+        echo '<li><p>' . $activity_name . '</p><p>' . $activity_desc . '</p><p> Date: ' . $actitivityDate . '</p>';
+    }
 } else{
-  echo "<h2>You have no upcoming bookings</h2>";
+    echo "<h2>You have no upcoming bookings</h2>";
 }
+*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +50,7 @@ if ($bookings){
       </nav>
     </div>
     <div class="welcome-section">
-      <h2 class="welcome-heading">Welcome <?php echo htmlspecialchars($username); ?>!</h2>
+      <h2 class="welcome-heading">Welcome <?= $username ?>! </h2>
       <p class="welcome-text">Your local dashboard page for your activities, booking new activities and adjusting your personal information!</p>
       <div class="centered-icons">
         <!-- Place your centered icons here -->

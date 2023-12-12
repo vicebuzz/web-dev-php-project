@@ -1,7 +1,7 @@
 <?php
-require_once './resources/database.php';
-require_once './resources/crud/userCrud.php';
-require_once './resources/crud/activityCrud.php';
+require_once 'database.php';
+require_once 'userCrud.php';
+require_once 'activityCrud.php';
 
 
 class BookingCRUD {
@@ -11,7 +11,6 @@ class BookingCRUD {
     private $activityCRUD;
 
     function __construct() {
-
         $db_connect_booking = new DBConnect();
         $db_connect_booking->loadData();
         $this->db = $db_connect_booking->connect();
@@ -69,10 +68,7 @@ class BookingCRUD {
             while($row = $result->fetch_assoc()){
                 $bookings[] = $row;
             }
-            echo"query run";
         }
-
-
         return $bookings;
     }
 
@@ -97,21 +93,21 @@ class BookingCRUD {
         $activityParameters = $jsonParameters["activityParameters"];
 
         // get user id if not provided
-        if (isset($userParameters["id"])){
-            $localUserID = $userParameters["id"];
+        if (isset($userParameters["userID"])){
+            $localUserID = $userParameters["userID"];
         } else{
-            $localUserID = $this->userCRUD->getUser(json_encode($userParameters))[0]["id"];
+            $localUserID = $this->userCRUD->getUser(json_encode($userParameters))[0]["userID"];
         }
 
         // get activity id if not provided
-        if (isset($activityParameters["id"])){
-            $localActivityID = $activityParameters["id"];
+        if (isset($activityParameters["activityID"])){
+            $localActivityID = $activityParameters["activityID"];
             $activity = $this->activityCRUD->getActivities(json_encode($activityParameters));
-            $localActivityDate = $activity[0]["activity_date"];
+            $localActivityDate = $activity[0]["activityDate"];
         } else{
             $activity = $this->activityCRUD->getActivities(json_encode($activityParameters));
-            $localActivityID = $activity[0]["id"];
-            $localActivityDate = $activity[0]["activity_date"];
+            $localActivityID = $activity[0]["activityID"];
+            $localActivityDate = $activity[0]["activityDate"];
         }
 
         echo $localActivityID;
@@ -172,7 +168,7 @@ class BookingCRUD {
          }
  
          $query = "DELETE FROM Booking";
-         $query .= " WHERE id=".$parameters["id"];
+         $query .= " WHERE id=".$parameters["bookingID"];
              
  
          // Execute the query
@@ -187,7 +183,4 @@ class BookingCRUD {
      }
 }
 
-$bookingCRUD = new BookingCRUD();
-//$bookingCRUD->createNewBooking('{"userParameters":{"id":7},"activityParameters":{"id":2}}');
-print_r($bookingCRUD->retrieveUserBookings('{"user_username": "vikstar"}'));
 ?>

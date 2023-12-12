@@ -31,7 +31,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('fitness.png');
+  background-image: url('../img/fitness.png');
   opacity: 0.1;
   z-index: -1;
   background-attachment: fixed;

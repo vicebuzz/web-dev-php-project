@@ -1,5 +1,5 @@
 <?php
-require_once '../database.php';
+require_once 'database.php';
 
 class UserCRUD {
 
@@ -319,18 +319,4 @@ class UserCRUD {
 
 }
 
-#$userCRUD = new UserCRUD();
-#print_r ($userCRUD->getUsers());
-#var_dump($userCRUD->getUser('1'))
-
-#$userCRUD->createUser('{"username":"vikstar","email":"vikstar@yahoo.com","user_password":"vikstarcool12345","registration_date":"2023-11-12 13:35:38","subscription_type":"Pro","preferred_categories":"same","admin":1}');
-
-#print_r($userCRUD->getUser('{"username":"vikstar", "user_password":"vikstarcool12345"}'))
-
-#$userCRUD->updateUser('{"selectParameters":{"username":"vikstar"},"updateParameters":{"admin":1}}');
-#$userCRUD->deleteUser('{"username":"vikstar"}');
-#echo $userCRUD->isUserAnAdmin('{"username":"vikstar"}');
-
-
-#$userCRUD->deleteAll();
 ?>

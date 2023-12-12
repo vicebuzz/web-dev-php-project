@@ -1,5 +1,5 @@
 <?php
-require_once './resources/database.php';
+require_once 'database.php';
 
 class ActivityCRUD {
 
@@ -262,14 +262,11 @@ class ActivityCRUD {
 
     
 }
-
-$activityCRUD = new ActivityCRUD();
 #$activityCRUD->updateActivity('{"selectParameters":{"activity_name":"Tennis"},"updateParameters":{"activity_name":"Swimming"}}');
 #$activityCRUD->deleteActivity('{"activity_name":"Swimming"}');
 #print_r($activityCRUD->getAllActivities())
 #echo $activityCRUD->getAllActivities()[4]["id"]
 #$activityCRUD->createActivity('{"activity_name":"Tennis","activity_description":"test desc","places_available":30,"activity_date":"2023-12-11 12:00:00"}');
 #print_r($activityCRUD->getActivitiesByPeriod('{"startDate":"2023-12-01 12:00:00"}'))
-print_r($activityCRUD->getActivities('{"id":""}'))
 
 ?>
