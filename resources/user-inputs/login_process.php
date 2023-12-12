@@ -21,7 +21,13 @@ function loginUser($username,$password){
         $_SESSION['username'] = $username;
         print_r($_SESSION);
         $success = true;
-        header("location: ../../public/desk.php");
+        if($result[0]["isAdmin"]==0){
+            header("location: ../../public/desk.php");
+        }
+        elseif ($result[0]["isAdmin"]==1) {
+            header("location: ../../public/manage.php");
+        }
+
         exit();
     }
     else{

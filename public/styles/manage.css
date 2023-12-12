@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -75,7 +74,7 @@ nav ul li a {
 }
 
 .my-desk-section {
-  padding: 100px 20px; 
+  padding: 100px 20px;
   background: linear-gradient(#02376b,#01152b);
   position: relative;
   z-index: 2;
@@ -91,13 +90,13 @@ nav ul li a {
 
 .dashboard {
   display: flex;
-  height: auto; 
+  height: auto;
   border-radius: 15px;
   overflow: hidden;
-  background: linear-gradient(135deg, #f5f5f5, #e6e6e6); 
-  padding: 20px; 
-  margin-top: 20px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  background: linear-gradient(135deg, #f5f5f5, #e6e6e6);
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -157,7 +156,7 @@ nav ul li a {
 .content p {
   font-size: 16px;
   font-family: 'Bubblegum Sans', cursive;
-  color: #333; 
+  color: #333;
 }
 
 /* Summary section styles */
@@ -189,7 +188,7 @@ nav ul li a {
 
 .form-group {
   margin-bottom: 20px;
-  color: #333; 
+  color: #333;
 }
 
 label {
@@ -197,7 +196,7 @@ label {
   display: block;
   font-size: 18px;
   margin-bottom: 8px;
-  color: #333; 
+  color: #333;
 }
 
 input[type="email"],
@@ -237,14 +236,14 @@ input[type="password"] {
   padding: 30px
 }
 .activity-details {
-  padding: 10px; 
+  padding: 10px;
 }
 
 .activity-details p{
   margin-bottom: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 12px; 
-  border-radius: 5px; 
+  padding: 12px;
+  border-radius: 5px;
 }
 
 .admin-form-card input[type="text"],
@@ -259,7 +258,7 @@ input[type="password"] {
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-bottom: 15px;
-  font-family: 'Arial', sans-serif; 
+  font-family: 'Arial', sans-serif;
 }
 
 .admin-form-card label {
@@ -283,93 +282,6 @@ input[type="password"] {
   background-color: #751f1b;
 }
 
-@media only screen and (max-width: 768px) {
-  
-  .title {
-    font-size: 28px;
-  }
-
-  nav ul li {
-    margin-left: 10px;
-  }
-
-  nav ul li a {
-    font-size: 18px;
-  }
-
-  .welcome-section {
-    padding: 100px 0;
-  }
-
-  .welcome-heading {
-    font-size: 60px;
-  }
-
-  .welcome-text {
-    font-size: 16px;
-  }
-
-  .my-desk-section {
-    padding: 80px 10px;
-  }
-
-  .my-desk-heading {
-    font-size: 36px;
-  }
-
-  .dashboard {
-    padding: 10px;
-  }
-
-  .sidebar {
-    padding: 10px;
-    min-width: unset;
-  }
-
-  .sidebar a {
-    font-size: 16px;
-    padding: 6px 12px;
-  }
-
-  .content {
-    padding: 10px;
-  }
-
-  .content h2 {
-    font-size: 32px;
-  }
-
-  .content p {
-    font-size: 14px;
-  }
-
-  .summary-section {
-    padding: 80px 0;
-  }
-
-  .register-btn,
-  .update-profile-btn,
-  .remove-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-
-  .profile-form,
-  .admin-form-card input,
-  .admin-form-card textarea {
-    font-size: 10px; 
-    max-width: 300px;
-  }
-
-  .admin-form-card textarea[name="activity-description"] {
-    width: calc(100% - 20px);
-    max-width: 100%;
-    padding: 8px;
-    font-size: 12px;
-    resize: vertical; 
-  }
-}
-
 label {
   border-radius: 5px;
   padding: 10px;
@@ -389,7 +301,48 @@ button {
 
 #image-preview {
   max-width: 100%;
-  max-height: 300px; 
+  max-height: 300px;
   display: block;
-  margin: 0 auto; 
+  margin: 0 auto;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-family: 'Arial', sans-serif;
+}
+
+@media only screen and (max-width: 768px) {
+  .welcome-text,
+  .activities-description,
+  .about-us-description,
+  .activity-card p {
+    font-size: 14px;
+  }
+
+  .activity-card p {
+    font-size: 16px;
+    max-width: 100%;
+  }
+
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  input[type="tel"],
+  textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+  }
 }

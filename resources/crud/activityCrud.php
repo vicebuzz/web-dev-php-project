@@ -151,8 +151,8 @@ class ActivityCRUD {
         }
 
         // split json into select parameters and update parameters
-        $select_parameters = $parameters["selectParameters"];
-        $update_parameters = $parameters["updateParameters"];
+        $select_parameters = $parameters[0];
+        $update_parameters = $parameters[1];
 
         // if those parameters are empty return error statement
         if (empty($select_parameters) || empty($update_parameters)) {
