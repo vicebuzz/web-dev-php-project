@@ -17,6 +17,17 @@ $username = $_SESSION['username'];
 // Retrieve user bookings
 $bookings = $bookingCRUD->retrieveUserBookings(json_encode(array("user_id"=>$_SESSION['user_id'])));
 
+if ($bookings){
+  echo "<ul>";
+  foreach($bookings as $booking){
+    $activity_name = $booking['activityName'];
+    $activity_desc = $booking['activityDescription'];
+    $actitivityDate = $booking['activityDate'];
+    echo '<li><p>' . $activity_name . '</p><p>' . $activity_desc . '</p><p> Date: ' . $actitivityDate . '</p>';
+  }
+} else{
+  echo "<h2>You have no upcoming bookings</h2>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
