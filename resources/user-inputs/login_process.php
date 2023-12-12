@@ -2,6 +2,7 @@
 require_once "../crud/userCrud.php";
 
 function loginUser($username,$password){
+    $success = false;
     $data = array (
         "username"=>$username,
         "userPassword"=>$password,
@@ -19,11 +20,12 @@ function loginUser($username,$password){
         $_SESSION['userID'] = $result[0]['userID'];
         $_SESSION['username'] = $username;
         print_r($_SESSION);
+        $success = true;
         header("location: ../../public/desk.php");
         exit();
     }
     else{
-        header("location: ../../public/login.php");
+        header("location: ../../public/login.php?message=".urlencode("Incorrect Login Details")."&success=" .($success ? 'true' : 'false'));
         //echo '<script>alert("Invalid password. Please try again")</script>';
         exit();
     }

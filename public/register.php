@@ -16,7 +16,21 @@
     <h1 class="website-title">FreeSpace</h1>
     <div class="login-section">
       <h2 class="login-heading">Sign Up</h2>
+      <?php
+        $message = '';
+        $success = false;
 
+        if (isset($_GET['message'])) {
+        $message = $_GET['message'];
+        $success = $_GET['success'] === 'true' ? true : false;
+        }
+        ?>
+        <!-- Display alert message -->
+        <?php if (!empty($message)): ?>
+            <p style="font-family: 'Bubblegum Sans', cursive; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); padding: 12px; border-radius: 5px; color: <?php echo $success ? '#059af0' : '#ff0000'; ?>">
+                <?php echo $message; ?>
+            </p>
+      <?php endif; ?>
       <form class="login-form" action="../resources/user-inputs/register_process.php" method="post">
         <input type="email" class="input-field" placeholder="Email" name="email" required>
 

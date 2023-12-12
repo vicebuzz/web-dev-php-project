@@ -51,7 +51,7 @@ class BookingCRUD {
             return "No parameters provided";
         }
 
-        $username = hash('sha1',$Parameters["user_username"]);
+        $username = hash('sha1',$Parameters["username"]);
 
         $query = "SELECT Activity.activityName, Activity.activityDescription, Activity.activityDate
         FROM Activity

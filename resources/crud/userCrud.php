@@ -103,7 +103,7 @@ class UserCRUD {
 
         if ($result) {
             $lastInsertedId = $this->db->insert_id;
-            return array("user_id"=>$$lastInsertedId);
+            return array("userID"=>$lastInsertedId);
         } else {
             return "Error registering a new user " . $this->db->error;
         }
