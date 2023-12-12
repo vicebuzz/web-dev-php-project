@@ -30,23 +30,16 @@ editActivityImageInputs.forEach(function(input) {
   });
 });
 
-// Store the current scroll position
-window.onload = function() {
-  var scrollPos;
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  } else {
-    window.addEventListener('beforeunload', function() {
-      scrollPos = {
-        x: window.scrollX,
-        y: window.scrollY
-      };
+document.addEventListener("DOMContentLoaded", function() {
+  var forms = document.querySelectorAll("form"); // Get all forms on the page
+  forms.forEach(function(form) {
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+      // Perform any additional actions here (optional)
+      // Manually submit the form via JavaScript
+      // You may perform form data validation or other tasks here before submission
+      form.submit(); // Manually submit the form
     });
-  }
-  // Restore the scroll position after page refresh
-  window.addEventListener('load', function() {
-    if (scrollPos) {
-      window.scrollTo(scrollPos.x, scrollPos.y);
-    }
   });
-};
+});
+

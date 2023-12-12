@@ -1,3 +1,10 @@
+<?php
+require_once "../resources/crud/activityCrud.php";
+$activityCRUD = new ActivityCRUD();
+$activities = $activityCRUD->getAllActivities();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/manage.css">
 </head>
 <body>
   <header>
@@ -39,31 +47,69 @@
       </p>
       <!-- Existing code for activity cards remains unchanged -->
     </div>
-    <section class="activities-section">
-      <h2 class="activities-heading">Activities</h2>
-      <p class="activities-description">
-        Check out our wide range of activities designed to suit every fitness level and interest.
-      </p>
-      <div class="activity-cards">
-        <!-- Activity cards -->
-        <div class="activity-card">
-          <img src="img/gym.jpg" alt="Activity 1">
-          <h3>Tread Marathon</h3>
-          <p>Join our lead coach Joshua during the track of your life-time, on our treadmills!</p>
-        </div>
-        <div class="activity-card">
-          <img src="img/swimming.jpg" alt="Activity 2">
-          <h3>Swimming</h3>
-          <p>Join a two-hour swimming session with family, friends and anyone you want to bring!</p>
-        </div>
-        <div class="activity-card">
-          <img src="img/tennis.jpg" alt="Activity 3">
-          <h3>Tennis</h3>
-          <p>Join a two-hour tennis match against some of our best and brightest. Join our chill coach Al with the event!</p>
-        </div>
-        <!-- Add more activity cards as needed -->
-      </div>
-    </section>
+      <section class="activities-section">
+          <h2 class="activities-heading">Browse Activities</h2>
+          <form class="padding-below" method="GET" action="">
+              <input type="text" name="search" placeholder="Search activities...">
+              <button class="register-btn" type="submit">Search</button>
+          </form>
+          <div></div>
+          <p class="activities-description">
+              Browse through a variety of activities and find the perfect one for you!
+          </p>
+          <div class="activity-cards">
+              <?php
+              // Check if the $activities array is set and is an array
+              if (isset($activities) && is_array($activities)) {
+                  // Check if a search query exists
+                  if (isset($_GET['search']) && !empty($_GET['search'])) {
+                      $search = strtolower($_GET['search']);
+                      // Filter activities based on the search query
+                      $filteredActivities = array_filter($activities, function ($activity) use ($search) {
+                          return strpos(strtolower($activity['activityName']), $search) !== false;
+                      });
+                      // Display filtered activities
+                      foreach ($filteredActivities as $activity) {
+                          echo '<div class="activity-card">';
+                          echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
+                          echo '<h3>' . $activity['activityName'] . '</h3>';
+                          echo '<p>' . $activity['activityDescription'] . '</p>';
+                          echo '<div class="activity-details">';
+                          echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
+                          echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
+                          echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
+                          // Add more activity details if necessary
+                          echo '</div>';
+                          echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
+                          echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
+                          echo '</form>';
+                          echo '</div>';
+                      }
+                  } else {
+                      // Display all activities if no search query is present
+                      foreach ($activities as $activity) {
+                          echo '<div class="activity-card">';
+                          echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
+                          echo '<h3>' . $activity['activityName'] . '</h3>';
+                          echo '<p>' . $activity['activityDescription'] . '</p>';
+                          echo '<div class="activity-details">';
+                          echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
+                          echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
+                          echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
+                          // Add more activity details if necessary
+                          echo '</div>';
+                          echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
+                          echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
+                          echo '</form>';
+                          echo '</div>';
+                      }
+                  }
+              } else {
+                  echo '<p>No activities found.</p>';
+              }
+              ?>
+          </div>
+      </section>
 
     <section class="summary-section">
       <div class="summary-content">
