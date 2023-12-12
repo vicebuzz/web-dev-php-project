@@ -30,17 +30,23 @@ editActivityImageInputs.forEach(function(input) {
   });
 });
 
-
-window.addEventListener('beforeunload', function() {
-    sessionStorage.setItem('scrollPosition', window.scrollY);
+// Store the current scroll position
+window.onload = function() {
+  var scrollPos;
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  } else {
+    window.addEventListener('beforeunload', function() {
+      scrollPos = {
+        x: window.scrollX,
+        y: window.scrollY
+      };
     });
-
-// Retrieve and set scroll position after page reloads
-window.addEventListener('DOMContentLoaded', function() {
-  var scrollPosition = sessionStorage.getItem('scrollPosition');
-  if (scrollPosition !== null) {
-      window.scrollTo(0, parseInt(scrollPosition));
-      sessionStorage.removeItem('scrollPosition'); // Clear the stored scroll position
+  }
+  // Restore the scroll position after page refresh
+  window.addEventListener('load', function() {
+    if (scrollPos) {
+      window.scrollTo(scrollPos.x, scrollPos.y);
     }
-});
-
+  });
+};
