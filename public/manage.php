@@ -125,7 +125,7 @@ $activities = $activityCRUD->getAllActivities();
             <h2 class="activities-heading">Launch Activity</h2>
             <p class="activities-description">Launch an activity to the live database by filling in the form below</p>
             <div class="activity-card admin-form-card">
-                <form class="profile-form" id="create-activity-form">
+                <form class="profile-form" id="create-activity-form" action="../resources/admin-options/create-activity.php" method="post">
                     <div class="form-group">
                         <label for="activity-image">Activity Image:</label>
                         <input type="file" id="activity-image" name="activity-image" accept="image/*" required>
