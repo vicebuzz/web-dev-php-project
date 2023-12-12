@@ -35,6 +35,7 @@
         <input type="text" class="input-field" placeholder="Username" name="username" required>
         <input type="password" class="input-field" placeholder="Password" name="password" required>
         <button type="submit" class="login-button">Login</button>
+        <p class="activity-details">Not got an account? <a href="register.php">Login here</a></p>
       </form>
     </div>
   </div>
