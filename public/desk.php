@@ -80,7 +80,7 @@ if ($bookings){
                       echo '<p>' . $activity['activityDescription'] . '</p>';
                       echo '<div class="activity-details">';
                       echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
-                      echo '<p><strong>Price: </strong> &nbsp' . $activity['price'] . '</p>';
+                      echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
                       echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
                       // Add more activity details if necessary
                       echo '</div>';
@@ -107,28 +107,24 @@ if ($bookings){
 
             <?php
               // Loop through each activity to display editable forms
-print_r($bookings);
                   foreach ($bookings as $booking) {
-                      echo '<div class="booking-card">';
-                      //echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
+                      echo '<div class="activity-card">';
+                      echo '<img src="./img/' . $booking['image'] . '" alt="' . $booking['activityName'] . '">';
                       echo '<h3>' . $booking['activityName'] . '</h3>';
                       echo '<p>' . $booking['activityDescription'] . '</p>';
                       echo '<div class="activity-details">';
                       echo '<p><strong>Date: </strong> &nbsp ' . $booking['activityDate'] . '</p>';
-                      /*
-
-
-                      echo '<p><strong>Price: </strong> &nbsp' . $activity['price'] . '</p>';
-                      echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
-                      // Add more activity details if necessary
+                      echo '<p><strong>Price: </strong> &nbsp£' . $booking['price'] . '</p>';
+                      echo '<p><strong>Room: </strong> &nbsp' .  $booking['room'] . '</p>';
                       echo '</div>';
-                      echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
-                      echo '<input type="hidden" name="activityID" value="' . $activity['activityID'].'">';
-                      echo '<button type="submit" class ="register-btn" name="add-booking" >JOIN</button>';
+                      // Add more activity details if necessary
+
+                      echo '<form action="../resources/user-inputs/remove-booking.php" method="post">';
+                      echo '<input type="hidden" name="activityID" value="' . $booking['activityID'].'">';
+                      echo '<input type="hidden" name="bookingID" value="' . $booking['bookingID'].'">';
+                      echo '<button type="submit" class ="remove-btn" name="remove-booking" >Remove</button>';
                       echo '</form>';
                       echo '</div>';
-                      */
-
               };
                   ?>
 

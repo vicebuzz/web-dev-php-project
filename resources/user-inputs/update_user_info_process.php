@@ -28,7 +28,6 @@ function updateUserInfo($newUserInput,$flag)
 {
     session_start();
     $userCRUD = new UserCRUD();
-    $userID = $_SESSION["userID"];
 
     $paramArray = array(
       array("userID"=>$_SESSION["userID"]),

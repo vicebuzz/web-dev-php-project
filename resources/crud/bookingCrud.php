@@ -38,10 +38,6 @@ class BookingCRUD {
 
     }
 
-    function retrieveBookings($jsonParameters){
-
-    }
-    
     function retrieveUserBookings($jsonParameters){
         
         // decode json string to get user parameters and bookings
@@ -51,15 +47,16 @@ class BookingCRUD {
             return "No parameters provided";
         }
 
-        $username = hash('sha1',$Parameters["username"]);
+        $userID = $Parameters["userID"];
 
-        $query = "SELECT Activity.activityName, Activity.activityDescription, Activity.activityDate
+        $query = "SELECT Activity.activityName, Activity.activityDescription, Activity.activityDate,Activity.image,Activity.room,Activity.price,Activity.activityID, Booking.bookingID
         FROM Activity
         INNER JOIN BookingToActivivy ON Activity.activityID = BookingToActivivy.activityID
         INNER JOIN Booking ON BookingToActivivy.bookingID = Booking.bookingID
         INNER JOIN UserToBooking ON Booking.bookingID = UserToBooking.bookingID
         INNER JOIN Users ON UserToBooking.userID = Users.userID
-        WHERE Users.username = '$username'";
+        WHERE Users.userID = $userID";
+
 
         $result = $this->db->query($query);
 
@@ -121,7 +118,7 @@ class BookingCRUD {
                             WHERE Users.userID = '. $localUserID.' AND Activity.activityID = '.$localActivityID;
         $result = $this->db->query($validationQuery);
 
-        if ($result) {
+        if ($result->fetch_assoc()) {
             // booking already exists
             $success = false;
             header("location: ../../public/desk.php?message=".urlencode("Already booked for this activity")."&success=" .($success ? 'true' : 'false'));
@@ -179,7 +176,7 @@ class BookingCRUD {
 
          //decode json string provided
          $parameters = json_decode($jsonParameters, true);
-
+print_r($parameters);
          // if empty parameters, return 
          if (!$parameters) {
              return "No parameters provided.";
@@ -192,7 +189,7 @@ class BookingCRUD {
         $deleteActivityBookingQuery .= " WHERE bookingID=".$parameters["bookingID"].' AND activityID='.$parameters['activityID'];
 
          $query = "DELETE FROM Booking";
-         $query .= " WHERE id=".$parameters["bookingID"];
+         $query .= " WHERE bookingID=".$parameters["bookingID"];
              
  
          // Execute queries
