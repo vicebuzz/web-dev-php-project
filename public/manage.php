@@ -120,7 +120,7 @@ $activities = $activityCRUD->getAllActivities();
         </section>
 
 
-        
+
         <section class="activities-section">
             <h2 class="activities-heading">Launch Activity</h2>
             <p class="activities-description">Launch an activity to the live database by filling in the form below</p>
@@ -130,12 +130,15 @@ $activities = $activityCRUD->getAllActivities();
                         <label for="activity-image">Activity Image:</label>
                         <input type="file" id="activity-image" name="activity-image" accept="image/*" required>
                         <img id="image-preview" class="activity-card" src="#" alt="Selected Image" style="display: none; max-width: 100%; margin-top: 10px;">
+
                     </div>
 
                     <div class="form-group">
+
                         <label for="activity-name">Activity Name:</label>
                         <input type="text" id="activity-name" name="activity-name" placeholder="Enter activity name" required>
                     </div>
+
                     <div class="form-group">
                         <label for="activity-description">Activity Description:</label>
                         <textarea id="activity-description" name="activity-description" placeholder="Enter activity description" required></textarea>

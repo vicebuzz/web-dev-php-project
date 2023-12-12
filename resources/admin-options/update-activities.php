@@ -15,7 +15,7 @@ function updateActivities($activityID){
     $paramArray = array(
         array("activityID"=>$activityID),
         array("activityName"=>$activityName, "activityDescription"=>$activityDesc,"activityDate"=>$activityDate,
-               "price"=>$activityPrice, "room"=>$activityRoom)
+               "price"=>$activityPrice, "room"=>$activityRoom, "image"=>$activityImage)
     );
     $jsonArray=json_encode($paramArray);
     $activityCrud->updateActivity($jsonArray);
