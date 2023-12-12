@@ -265,8 +265,8 @@ class UserCRUD {
         $parameters = json_decode($jsonParameters, true);
 
         // Check if startDate and endDate are provided, set default values if not
-        $startDate = isset($parameters['startDate']) ? $parameters['startDate'] : $this->getMinSubscriptionDate();
-        $endDate = isset($parameters['endDate']) ? $parameters['endDate'] : $this->getMaxSubscriptionDate();
+        $startDate = isset($parameters['startDate']) ? $parameters['startDate'] : $this->getMinRegistrationDate();
+        $endDate = isset($parameters['endDate']) ? $parameters['endDate'] : $this->getMaxRegistrationDate();
 
         // Build the query
         $query = "SELECT * FROM Users WHERE registrationDate BETWEEN '$startDate' AND '$endDate'";
