@@ -128,28 +128,28 @@ $activities = $activityCRUD->getAllActivities();
                     <label for="username">
                         <i class="fas fa-user"></i> Change Username:
                     </label>
-                    <input type="text" id="username" name="username" value="<?php echo "Janet Smith"; ?>">
+                    <input type="text" id="username" name="username" value="" required>
                     <button type="submit" class="register-btn" name="update-type" value="update-username">Submit</button>
                 </div>
                 <div class="form-group">
                     <label for="email">
                         <i class="fas fa-envelope"></i> Change Email Address:
                     </label>
-                    <input type="email" id="email" name="email" value="<?php echo "janetsmith@onemail.com"; ?>">
+                    <input type="email" id="email" name="email" value=""required>
                     <button type="submit" class="register-btn" name="update-type" value="update-email">Submit</button>
                 </div>
                 <div class="form-group">
                     <label for="password">
                         <i class="fas fa-lock"></i> Change Password:
                     </label>
-                    <input type="password" id="password" name="password" value="<?php echo "samplepassword123";?>">
+                    <input type="password" id="password" name="password" value=""required>
                     <button type="submit" class="register-btn" name="update-type" value="update-password">Submit</button>
                 </div>
                 <div class="form-group">
                     <label for="phone">
                         <i class="fas fa-phone"></i> Change Phone Number:
                     </label>
-                    <input type="tel" id="phone" name="phone" value="<?php echo "01202 341699";?>">
+                    <input type="tel" id="phone" name="phone" value=""required>
                     <button type="submit" class="register-btn" name="update-type" value="update-phone">Submit</button>
                 </div>
             </form>

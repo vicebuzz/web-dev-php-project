@@ -33,21 +33,12 @@ function updateUserInfo($newUserInput,$flag)
       array("userID"=>$_SESSION["userID"]),
       array($flag=>$newUserInput)
     );
-
-    echo $jsonArray = json_encode($paramArray);
-
-    echo $userCRUD->updateUser($jsonArray);
-
-
+    $jsonArray = json_encode($paramArray);
+    $userCRUD->updateUser($jsonArray);
+    header("location: ../../public/login.php");
+    exit();
 
 }
-
-
-
-
-
-
-
 
 getTypeToChange($updateType);
 
