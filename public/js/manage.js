@@ -30,3 +30,23 @@ editActivityImageInputs.forEach(function(input) {
   });
 });
 
+// Store the current scroll position
+window.onload = function() {
+  var scrollPos;
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  } else {
+    window.addEventListener('beforeunload', function() {
+      scrollPos = {
+        x: window.scrollX,
+        y: window.scrollY
+      };
+    });
+  }
+  // Restore the scroll position after page refresh
+  window.addEventListener('load', function() {
+    if (scrollPos) {
+      window.scrollTo(scrollPos.x, scrollPos.y);
+    }
+  });
+};

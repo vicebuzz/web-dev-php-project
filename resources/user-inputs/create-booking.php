@@ -12,7 +12,7 @@ function createBooking($activityID){
     );
 
     $bookingCRUD->createNewBooking(json_encode($paramArray));
-    header("location: ../../public/desk.php");
+    header("location: ../../public/desk.php#activity-cards-section");
     exit();
 }
 

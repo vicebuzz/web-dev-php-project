@@ -58,38 +58,69 @@ $activities = $activityCRUD->getAllActivities();
         <p class="welcome-text">Below is your dashboard for updating and selecting your personal details, registered classes and other information.</p>
 
         <section class="activities-section">
-
-
             <h2 class="activities-heading">Browse Activities</h2>
+            <form class="padding-below" method="GET" action="">
+                <input type="text" name="search" placeholder="Search activities...">
+                <button class="register-btn" type="submit">Search</button>
+            </form>
+            <div></div>
             <p class="activities-description">
                 Browse through a variety of activities and find the perfect one for you!
             </p>
             <div class="activity-cards">
                 <?php
-                // Loop through each activity to display editable forms
-
-                foreach ($activities as $activity) {
-                    echo '<div class="activity-card">';
-                    echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
-                    echo '<h3>' . $activity['activityName'] . '</h3>';
-                    echo '<p>' . $activity['activityDescription'] . '</p>';
-                    echo '<div class="activity-details">';
-                    echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
-                    echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
-                    echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
-                    // Add more activity details if necessary
-                    echo '</div>';
-                    echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
-                    echo '<input type="hidden" name="activityID" value="' . $activity['activityID'].'">';
-                    echo '<button type="submit" class ="register-btn" name="add-booking" >JOIN</button>';
-                    echo '</form>';
-                    echo '</div>';
-
-                };
-
+                // Check if the $activities array is set and is an array
+                if (isset($activities) && is_array($activities)) {
+                    // Check if a search query exists
+                    if (isset($_GET['search']) && !empty($_GET['search'])) {
+                        $search = strtolower($_GET['search']);
+                        // Filter activities based on the search query
+                        $filteredActivities = array_filter($activities, function ($activity) use ($search) {
+                            return strpos(strtolower($activity['activityName']), $search) !== false;
+                        });
+                        // Display filtered activities
+                        foreach ($filteredActivities as $activity) {
+                            echo '<div class="activity-card">';
+                            echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
+                            echo '<h3>' . $activity['activityName'] . '</h3>';
+                            echo '<p>' . $activity['activityDescription'] . '</p>';
+                            echo '<div class="activity-details">';
+                            echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
+                            echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
+                            echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
+                            // Add more activity details if necessary
+                            echo '</div>';
+                            echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
+                            echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
+                            echo '<button type="submit" class ="register-btn" name="add-booking" >JOIN</button>';
+                            echo '</form>';
+                            echo '</div>';
+                        }
+                    } else {
+                        // Display all activities if no search query is present
+                        foreach ($activities as $activity) {
+                            echo '<div class="activity-card">';
+                            echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
+                            echo '<h3>' . $activity['activityName'] . '</h3>';
+                            echo '<p>' . $activity['activityDescription'] . '</p>';
+                            echo '<div class="activity-details">';
+                            echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
+                            echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
+                            echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
+                            // Add more activity details if necessary
+                            echo '</div>';
+                            echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
+                            echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
+                            echo '<button type="submit" class ="register-btn" name="add-booking" >JOIN</button>';
+                            echo '</form>';
+                            echo '</div>';
+                        }
+                    }
+                } else {
+                    echo '<p>No activities found.</p>';
+                }
                 ?>
-
-                <!-- Activity cards dynamically added using PHP -->
+            </div>
         </section>
 
         <section class="activities-section">
@@ -127,22 +158,25 @@ $activities = $activityCRUD->getAllActivities();
         </section>
 
 
-        
+
         <section class="activities-section">
             <h2 class="activities-heading">Launch Activity</h2>
             <p class="activities-description">Launch an activity to the live database by filling in the form below</p>
             <div class="activity-card admin-form-card">
-                <form class="profile-form" id="create-activity-form">
+                <form class="profile-form" id="create-activity-form" action="../resources/admin-options/create-activity.php" method="post">
                     <div class="form-group">
                         <label for="activity-image">Activity Image:</label>
                         <input type="file" id="activity-image" name="activity-image" accept="image/*" required>
                         <img id="image-preview" class="activity-card" src="#" alt="Selected Image" style="display: none; max-width: 100%; margin-top: 10px;">
+
                     </div>
 
                     <div class="form-group">
+
                         <label for="activity-name">Activity Name:</label>
                         <input type="text" id="activity-name" name="activity-name" placeholder="Enter activity name" required>
                     </div>
+
                     <div class="form-group">
                         <label for="activity-description">Activity Description:</label>
                         <textarea id="activity-description" name="activity-description" placeholder="Enter activity description" required></textarea>
@@ -210,9 +244,11 @@ $activities = $activityCRUD->getAllActivities();
                     echo '</div>';
                     // Add other fields to edit as necessary
 
+
                     // Add update and delete buttons
                     echo '<div class="form-button-group">';
                     echo '<button type="submit" name="update_activity" class="register-btn">Update</button>';
+
                     echo '<button type="submit" name="delete_activity" class="remove-btn">Delete</button>';
                     echo '</div>';
                     echo '</div>';
@@ -231,28 +267,28 @@ $activities = $activityCRUD->getAllActivities();
                     <label for="username">
                         <i class="fas fa-user"></i> Change Username:
                     </label>
-                    <input type="text" id="username" name="username" value="<?php echo "Janet Smith"; ?>">
+                    <input type="text" id="username" name="username" value="<?php echo ""; ?>" required>
                     <button type="submit" class="register-btn" name="update-type" value="update-username">Submit</button>
                 </div>
                 <div class="form-group">
                     <label for="email">
                         <i class="fas fa-envelope"></i> Change Email Address:
                     </label>
-                    <input type="email" id="email" name="email" value="<?php echo "janetsmith@onemail.com"; ?>">
+                    <input type="email" id="email" name="email" value="<?php echo ""; ?>"required>
                     <button type="submit" class="register-btn" name="update-type" value="update-email">Submit</button>
                 </div>
                 <div class="form-group">
                     <label for="password">
                         <i class="fas fa-lock"></i> Change Password:
                     </label>
-                    <input type="password" id="password" name="password" value="<?php echo "samplepassword123";?>">
+                    <input type="password" id="password" name="password" value="<?php echo "";?>"required>
                     <button type="submit" class="register-btn" name="update-type" value="update-password">Submit</button>
                 </div>
                 <div class="form-group">
                     <label for="phone">
                         <i class="fas fa-phone"></i> Change Phone Number:
                     </label>
-                    <input type="tel" id="phone" name="phone" value="<?php echo "01202 341699";?>">
+                    <input type="tel" id="phone" name="phone" value="<?php echo "";?>"required>
                     <button type="submit" class="register-btn" name="update-type" value="update-phone">Submit</button>
                 </div>
             </form>
