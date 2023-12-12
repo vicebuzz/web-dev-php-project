@@ -346,3 +346,7 @@ input[type="tel"] {
     font-family: 'Arial', sans-serif;
   }
 }
+
+.padding-below {
+    margin-bottom: 20px;
+}

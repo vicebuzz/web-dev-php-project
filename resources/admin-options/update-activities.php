@@ -1,6 +1,8 @@
 <?php
 
 require_once  "../crud/activityCrud.php";
+
+
 $activityID = $_POST['activityID'];
 
 function updateActivities($activityID){
