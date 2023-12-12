@@ -5,6 +5,13 @@ require_once  "../crud/activityCrud.php";
 
 $activityID = $_POST['activityID'];
 
+if(isset( $_POST['update_activity'])){
+    updateActivities($activityID);
+}
+elseif (isset($_POST['delete_activity'])){
+deleteActivity($activityID);
+}
+
 function updateActivities($activityID){
     $activityCrud = new ActivityCRUD();
     $activityName = $_POST['edit_activity_name'];
@@ -24,5 +31,11 @@ function updateActivities($activityID){
     header("location: ../../public/manage.php");
 }
 
-updateActivities($activityID);
+function deleteActivity($activityID){
+    $activityCrud = new ActivityCRUD();
+
+    $jsonParam = json_encode(array("activityID"=>$activityID));
+    $activityCrud->deleteActivity($jsonParam);
+}
+
 ?>
