@@ -30,3 +30,17 @@ editActivityImageInputs.forEach(function(input) {
   });
 });
 
+
+window.addEventListener('beforeunload', function() {
+    sessionStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+// Retrieve and set scroll position after page reloads
+window.addEventListener('DOMContentLoaded', function() {
+  var scrollPosition = sessionStorage.getItem('scrollPosition');
+  if (scrollPosition !== null) {
+      window.scrollTo(0, parseInt(scrollPosition));
+      sessionStorage.removeItem('scrollPosition'); // Clear the stored scroll position
+    }
+});
+
