@@ -15,6 +15,9 @@ function loginUser($username,$password){
     print_r($result);
     if($result[0]["userPassword"] == hash('sha1',$password)){
         echo"<br> success <br>";
+        session_start();
+        $_SESSION['user_id'] = $result[0]['user_id'];
+        $_SESSION['username'] = $username;
         header("location: ../../public/desk.php");
         exit();
     }
