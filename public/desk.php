@@ -1,19 +1,19 @@
 <?php
 
 require_once "../resources/crud/bookingCrud.php";
-$bookingCRUD = new BookingCRUD();
+require_once "../resources/crud/activityCrud.php";
 session_start();
-/* (!isset($_SESSION['user_id'])) {
-  header("Location: login.php"); // Redirect to login page if not logged in
-  exit();
-}
-*/
+$bookingCRUD = new BookingCRUD();
+$activityCRUD = new ActivityCRUD();
 
 // Retrieve the username from the session
 $username = $_SESSION['username'];
 
-// Retrieve user bookings
+// Retrieve bookings
 $bookings = $bookingCRUD->retrieveUserBookings(json_encode(array("userID"=>$_SESSION['userID'])));
+
+// Retrieve bookings
+$activities = $activityCRUD->getAllActivities();
 /*
 if ($bookings){
     echo "<ul>";
@@ -61,71 +61,40 @@ if ($bookings){
     <div class="my-desk-section"> 
       <h2 class="my-desk-heading">My Dashboard</h2> 
       <p class="welcome-text">Below is your dashboard for updating and selecting your personal details, registered classes and other information.</p>
-       
+
       <section class="activities-section">
+
+
         <h2 class="activities-heading">Browse Activities</h2>
         <p class="activities-description">
           Browse through a variety of activities and find the perfect one for you!
         </p>
-        <div class="activity-cards">
+          <div class="activity-cards">
+              <?php
+              // Loop through each activity to display editable forms
+
+                  foreach ($activities as $activity) {
+                      echo '<div class="activity-card">';
+                      echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
+                      echo '<h3>' . $activity['activityName'] . '</h3>';
+                      echo '<p>' . $activity['activityDescription'] . '</p>';
+                      echo '<div class="activity-details">';
+                      echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
+                      echo '<p><strong>Price: </strong> &nbsp' . $activity['price'] . '</p>';
+                      echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
+                      // Add more activity details if necessary
+                      echo '</div>';
+                      echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
+                      echo '<input type="hidden" name="activityID" value="' . $activity['activityID'].'">';
+                      echo '<button type="submit" class ="register-btn" name="add-booking" >JOIN</button>';
+                      echo '</form>';
+                      echo '</div>';
+
+              };
+
+              ?>
+
           <!-- Activity cards dynamically added using PHP -->
-          <div class="activity-card">
-            <img src="img/gym.jpg" alt="Activity 1">
-            <h3>Tread Marathon</h3>
-            <p>Join our lead coach Joshua in the trek of a lifetime, on our treadmills!</p>
-            <div class="activity-details">
-              <p><strong>Date:</strong> January 15, 2024</p>
-              <p><strong>Price:</strong> $10</p>
-              <p><strong>Room:</strong> Gym Area</p>
-              <!-- Add more activity details as needed -->
-            </div>
-            <button class="register-btn">Register</button>
-          </div>
-
-          <!-- Activity card 2 -->
-          <div class="activity-card">
-            <img src="img/swimming.jpg" alt="Activity 2">
-            <h3>Swimming Session</h3>
-            <p>Join a two-hour swimming session with family and friends!</p>
-            <div class="activity-details">
-              <p><strong>Date:</strong> January 20, 2024</p>
-              <p><strong>Price:</strong> $8</p>
-              <p><strong>Room:</strong> Pool Area</p>
-              <!-- Add more activity details as needed -->
-            </div>
-            <button class="register-btn">Register</button>
-          </div>
-
-          <!-- Add more activity cards -->
-          <!-- Activity card 3 -->
-          <div class="activity-card">
-            <img src="img/yoga.jpg" alt="Activity 3">
-            <h3>Yoga Class</h3>
-            <p>Relax your mind and body in our yoga session led by experienced instructors.</p>
-            <div class="activity-details">
-              <p><strong>Date:</strong> January 18, 2024</p>
-              <p><strong>Price:</strong> $12</p>
-              <p><strong>Room:</strong> Yoga Studio</p>
-              <!-- Add more activity details as needed -->
-            </div>
-            <button class="register-btn">Register</button>
-          </div>
-
-          <!-- Activity card 4 -->
-          <div class="activity-card">
-            <img src="img/boxing.jpg" alt="Activity 4">
-            <h3>Boxing Training</h3>
-            <p>Get fit and learn boxing techniques in our intensive training sessions!</p>
-            <div class="activity-details">
-              <p><strong>Date:</strong> January 22, 2024</p>
-              <p><strong>Price:</strong> $15</p>
-              <p><strong>Room:</strong> Boxing Arena</p>
-              <!-- Add more activity details as needed -->
-            </div>
-            <button class="register-btn">Register</button>
-          </div>
-          <!-- Add more activity cards as needed -->
-        </div>
       </section>
 
       <section class="activities-section">
@@ -135,49 +104,72 @@ if ($bookings){
         </p>
         <div class="activity-cards">
           <!-- Booked activity cards dynamically added using PHP -->
-          <div class="activity-card">
-            <img src="img/boxing.jpg" alt="Activity 4">
-            <h3>Boxing Training</h3>
-            <p>Get fit and learn boxing techniques in our intensive training sessions!</p>
-            <div class="activity-details">
-              <p><strong>Date:</strong> January 22, 2024</p>
-              <p><strong>Price:</strong> $15</p>
-              <p><strong>Room:</strong> Boxing Arena</p>
-              <!-- Add more activity details as needed -->
-            </div>
-            <button class="remove-btn">Remove</button>
-          </div>
+
+            <?php
+              // Loop through each activity to display editable forms
+print_r($bookings);
+                  foreach ($bookings as $booking) {
+                      echo '<div class="booking-card">';
+                      //echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
+                      echo '<h3>' . $booking['activityName'] . '</h3>';
+                      echo '<p>' . $booking['activityDescription'] . '</p>';
+                      echo '<div class="activity-details">';
+                      echo '<p><strong>Date: </strong> &nbsp ' . $booking['activityDate'] . '</p>';
+                      /*
+
+
+                      echo '<p><strong>Price: </strong> &nbsp' . $activity['price'] . '</p>';
+                      echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
+                      // Add more activity details if necessary
+                      echo '</div>';
+                      echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
+                      echo '<input type="hidden" name="activityID" value="' . $activity['activityID'].'">';
+                      echo '<button type="submit" class ="register-btn" name="add-booking" >JOIN</button>';
+                      echo '</form>';
+                      echo '</div>';
+                      */
+
+              };
+                  ?>
+
         </div>
       </section>
 
 
 
-      <section class="activities-section user-account-section">
-        <h2 class="activities-heading">Change Account Details</h2>
-        <form class="profile-form"  action="../resources/user-inputs/update_user_info_process.php" id="update-profile-form" method = post>
-          <div class="form-group">
-            <label for="original-email">Original Email Address:</label>
-            <input type="email" id="original-email" name="original-email" placeholder="Enter your original email" required>
-          </div>
-          <div class="form-group">
-            <label for="original-password">Original Password:</label>
-            <input type="password" id="original-password" name="original-password" placeholder="Enter your original password" required>
-          </div>
-          <div class="form-group">
-            <label for="new-email">New Email Address:</label>
-            <input type="email" id="new-email" name="new-email" placeholder="Enter your new email" required>
-          </div>
-          <div class="form-group">
-            <label for="new-password">New Password:</label>
-            <input type="password" id="new-password" name="new-password" placeholder="Enter your new password" required>
-          </div>
-          <div class="form-group">
-            <label for="confirm-password">Confirm New Password:</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your new password" required>
-          </div>
-          <button type="submit" class="update-profile-btn">Update Profile</button>
-        </form>
-      </section>
+        <section class="activities-section user-account-section">
+            <h2 class="activities-heading">Account Details</h2>
+            <form class="profile-form" id="update-profile-form" action="../resources/user-inputs/update_user_info_process.php" method="post">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Change Username:
+                    </label>
+                    <input type="text" id="username" name="username" value="<?php echo "Janet Smith"; ?>">
+                    <button type="submit" class="register-btn" name="update-type" value="update-username">Submit</button>
+                </div>
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Change Email Address:
+                    </label>
+                    <input type="email" id="email" name="email" value="<?php echo "janetsmith@onemail.com"; ?>">
+                    <button type="submit" class="register-btn" name="update-type" value="update-email">Submit</button>
+                </div>
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Change Password:
+                    </label>
+                    <input type="password" id="password" name="password" value="<?php echo "samplepassword123";?>">
+                    <button type="submit" class="register-btn" name="update-type" value="update-password">Submit</button>
+                </div>
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i> Change Phone Number:
+                    </label>
+                    <input type="tel" id="phone" name="phone" value="<?php echo "01202 341699";?>">
+                    <button type="submit" class="register-btn" name="update-type" value="update-phone">Submit</button>
+                </div>
+            </form>
+        </section>
     </div>
   </main>
 

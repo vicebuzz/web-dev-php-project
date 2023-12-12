@@ -89,8 +89,8 @@ class BookingCRUD {
         $localPlacesAvailable = '';
 
         // get attributes parts
-        $userParameters = $jsonParameters["userParameters"];
-        $activityParameters = $jsonParameters["activityParameters"];
+        $userParameters = $jsonParameters[0];
+        $activityParameters = $jsonParameters[1];
 
         // get user id if not provided
         if (isset($userParameters["userID"])){
@@ -110,26 +110,40 @@ class BookingCRUD {
             $localActivityDate = $activity[0]["activityDate"];
         }
 
-        echo $localActivityID;
+        //echo "$localActivityID<br>";
 
-        // create a new booking record
-        $query = "INSERT INTO Booking (
-            bookingCreated, 
-            ) 
+        $validationQuery = 'SELECT Users.userID, Booking.bookingID, Activity.activityID
+                            FROM Users
+                            INNER JOIN UserToBooking ON Users.userID = UserToBooking.userID
+                            INNER JOIN Booking ON UserToBooking.bookingID = Booking.bookingID
+                            INNER JOIN BookingToActivivy ON Booking.bookingID = BookingToActivivy.bookingID
+                            INNER JOIN Activity ON BookingToActivivy.activityID = Activity.activityID
+                            WHERE Users.userID = '. $localUserID.' AND Activity.activityID = '.$localActivityID;
+        $result = $this->db->query($validationQuery);
+
+        if ($result) {
+            // booking already exists
+            $success = false;
+            header("location: ../../public/desk.php?message=".urlencode("Already booked for this activity")."&success=" .($success ? 'true' : 'false'));
+            exit();
+        } else{
+            // create a new booking record
+            $query = "INSERT INTO Booking (bookingCreated) 
             VALUES (
-                '$localActivityDate',
+                '$localActivityDate'
             )";
-        
-        $result = $this->db->query($query);
+            echo $strippedQuery = str_replace(array("\r","\n"), '',$query);
+            //echo $query;
+            $result = $this->db->query($strippedQuery);
 
-        $localBookingID = $this->db->insert_id;
+            $localBookingID = $this->db->insert_id;
 
-        if (!$result){
-            return "Error creating creating new booking: " . $this->db->error;
-        }
+            if (!$result){
+                return "Error creating creating new booking: " . $this->db->error;
+            }
 
-        // create a link table record for activity-booking
-        $query = "INSERT INTO BookingToActivivy (
+            // create a link table record for activity-booking
+            $query = "INSERT INTO BookingToActivivy (
             activityID, 
             bookingID
             ) 
@@ -137,11 +151,11 @@ class BookingCRUD {
                 '$localActivityID',
                 '$localBookingID'
             )";
-        
-        $this->db->query($query);
 
-        // create a link table record for user-booking
-        $query = "INSERT INTO UserToBooking (
+            $this->db->query($query);
+
+            // create a link table record for user-booking
+            $query = "INSERT INTO UserToBooking (
             userID, 
             bookingID
             ) 
@@ -149,10 +163,14 @@ class BookingCRUD {
                 '$localUserID',
                 '$localBookingID'
             )";
-        
-        $this->db->query($query);
 
-        // decrement placesAvalaible attribute of an activity
+            $this->db->query($query);
+
+            // decrement placesAvalaible attribute of an activity
+        }
+
+
+
 
     }
 
@@ -166,12 +184,20 @@ class BookingCRUD {
          if (!$parameters) {
              return "No parameters provided.";
          }
- 
+
+         $deleteUserBookingQuery = "DELETE FROM UserToBooking";
+         $deleteUserBookingQuery .= " WHERE bookingID=".$parameters["bookingID"].' AND userID='.$parameters['userID'];
+
+        $deleteActivityBookingQuery = "DELETE FROM BookingToActivivy";
+        $deleteActivityBookingQuery .= " WHERE bookingID=".$parameters["bookingID"].' AND activityID='.$parameters['activityID'];
+
          $query = "DELETE FROM Booking";
          $query .= " WHERE id=".$parameters["bookingID"];
              
  
-         // Execute the query
+         // Execute queries
+        $this->db->query($deleteUserBookingQuery);
+        $this->db->query($deleteActivityBookingQuery);
          $result = $this->db->query($query);
  
          if ($result) {

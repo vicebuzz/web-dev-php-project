@@ -317,3 +317,15 @@ nav ul li a {
 .navbar-buttons:hover {
   background-color:  #02376b; 
 }
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+}

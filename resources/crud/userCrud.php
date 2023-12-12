@@ -121,16 +121,21 @@ class UserCRUD {
         }
 
         // split json into select parameters and update parameters
-        $select_parameters = $parameters["selectParameters"];
-        $update_parameters = $parameters["updateParameters"];
 
+
+        $select_parameters = $parameters[0];
+        $update_parameters = $parameters[1];
+
+        echo  "<br>  oeiwhgoiwheoighwoiehgoiwh";
+        echo  "<br>  $select_parameters";
+        echo  "<br>  $update_parameters";
         // if those parameters are empty return error statement
         if (empty($select_parameters) || empty($update_parameters)) {
             return "Invalid JSON format. Please provide both 'criteria' and 'updateData'.";
         }
 
         // Build the base query
-        $query = "UPDATE User";
+        $query = "UPDATE Users";
 
         // Process parameters to update
         $updates = [];
@@ -138,9 +143,13 @@ class UserCRUD {
         foreach ($update_parameters as $key => $value) {
             if ($key == "username" || $key == "email" || $key == "userPassword"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
-                $conditions[] = "$key = '$hash_value'";
-            } else {
-                $conditions[] = "$key = '$value'";
+                $updates[] = "$key = '$hash_value'";
+            }
+            elseif ($key=="userID"){
+                $updates[] = "$key = $value";
+            }
+            else {
+                $updates[] = "$key = '$value'";
             }
         }
 
@@ -153,14 +162,19 @@ class UserCRUD {
             if ($key == "username" || $key == "email" || $key == "userPassword"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
-            } else {
+            }
+            elseif ($key=="userID"){
+                $conditions[] = "$key = $value";
+            }
+            else {
                 $conditions[] = "$key = '$value'";
             }
+
         }
 
         // put anupdate query together
         $query .= " WHERE " . implode(" AND ", $conditions);
-
+        echo $query;
         // Execute the query
         $result = $this->db->query($query);
 
@@ -235,7 +249,7 @@ class UserCRUD {
         $conditions = [];
 
         foreach ($parameters as $key => $value) {
-            if ($key == "username" || $key == "email" || $key == "userPSassword"|| $key =="phoneNumber") {
+            if ($key == "username" || $key == "email" || $key == "userPassword"|| $key =="phoneNumber") {
                 $hash_value = hash("sha1", $value);
                 $conditions[] = "$key = '$hash_value'";
             } else {
