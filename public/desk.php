@@ -1,3 +1,16 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php"); // Redirect to login page if not logged in
+  exit();
+}
+
+// Retrieve the username from the session
+$username = $_SESSION['username'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +33,7 @@
       </nav>
     </div>
     <div class="welcome-section">
-      <h2 class="welcome-heading">Welcome User</h2>
+      <h2 class="welcome-heading">Welcome <?php echo htmlspecialchars($username); ?>!</h2>
       <p class="welcome-text">Your local dashboard page for your activities, booking new activities and adjusting your personal information!</p>
       <div class="centered-icons">
         <!-- Place your centered icons here -->

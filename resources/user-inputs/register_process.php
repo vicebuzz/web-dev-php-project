@@ -41,13 +41,17 @@ function registerUser($username,$password,$phoneNum,$email){
     }
 
 
-    else{
-        $result = $userCRUD->createUser($jsonString);
-        if($result =="New user registered."){
-            header("location: ../../public/desk.php");
-            exit();
-        }
+    $result = $userCRUD->createUser($jsonString);
+    if($result =="New user registered."){
+        session_start();
+        $_SESSION['user_id'] = $result["user_id"];
+        $_SESSION['username'] = $username;
+        $_SESSION['email'] = $email;
+        $_SESSION['phoneNum'] = $phoneNum;
+        header("location: ../../public/desk.php");
+        exit();
     }
+    
 
 }
 
