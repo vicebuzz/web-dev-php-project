@@ -1,5 +1,9 @@
 <?php
 
+require_once "../resources/crud/bookingCrud.php";
+
+$bookingCRUD = new BookingCRUD();
+
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -9,6 +13,9 @@ if (!isset($_SESSION['user_id'])) {
 
 // Retrieve the username from the session
 $username = $_SESSION['username'];
+
+// Retrieve user bookings
+$bookings = $bookingCRUD->retrieveUserBookings(json_encode(array("user_id"=>$_SESSION['user_id'])));
 
 ?>
 <!DOCTYPE html>
