@@ -36,12 +36,11 @@ $activities = $activityCRUD->getAllActivities();
     </div>
   </header>
   <main>
-    <div class="about-us-section"> <!-- Updated class name -->
-      <h2 class="about-us-heading">About Us</h2> <!-- Updated class name -->
-      <p class="about-us-description"> <!-- Updated class name -->
+    <div class="about-us-section"> 
+      <h2 class="about-us-heading">About Us</h2> 
+      <p class="about-us-description"> 
         Here at FreeSpace, we believe that everyone deserves to feel good and healthy. That's why we offer a wide range of activities to suit every fitness level. Our goal is to provide a safe and enjoyable environment for everyone, regardless of their fitness level or experience. Safe to explore and strengthen your resolve, join FreeSpace today to find your greater you.
       </p>
-      <!-- Existing code for activity cards remains unchanged -->
     </div>
       <section class="activities-section">
           <h2 class="activities-heading">Browse Activities</h2>
@@ -74,7 +73,6 @@ $activities = $activityCRUD->getAllActivities();
                           echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
                           echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
                           echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
-                          // Add more activity details if necessary
                           echo '</div>';
                           echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
                           echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
@@ -92,7 +90,6 @@ $activities = $activityCRUD->getAllActivities();
                           echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
                           echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
                           echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
-                          // Add more activity details if necessary
                           echo '</div>';
                           echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
                           echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
@@ -110,7 +107,6 @@ $activities = $activityCRUD->getAllActivities();
     <section class="summary-section">
       <div class="summary-content">
         <p>&copy; 2023 FreeSpace. All rights reserved.</p>
-        <!-- Additional summary content or copyright information -->
       </div>
   </main>
 </body>
