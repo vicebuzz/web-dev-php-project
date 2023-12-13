@@ -11,15 +11,20 @@ class BookingCRUD {
     private $activityCRUD;
 
     function __construct() {
-        $db_connect_booking = new DBConnect();
-        $db_connect_booking->loadData();
-        $this->db = $db_connect_booking->connect();
-
         $this->userCRUD = new UserCRUD();
         $this->activityCRUD = new ActivityCRUD();
     }
 
+    function connectLocal(){
+        $db_connect_booking = new DBConnect();
+        $db_connect_booking->loadData();
+        $this->db = $db_connect_booking->connect();
+    }
+
     function retriverAllBookings(){
+
+        // connect to database
+        $this->connectLocal();
 
         // query to select all activities
         $sql = 'SELECT * FROM Booking';
@@ -33,12 +38,18 @@ class BookingCRUD {
             $bookings[] = $row;
         }
 
+        //disconnect from database
+        $this->db->close();
+
         // return filled up array
         return $bookings;
 
     }
 
     function retrieveUserBookings($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
         
         // decode json string to get user parameters and bookings
         $Parameters = json_decode($jsonParameters, true);
@@ -66,14 +77,17 @@ class BookingCRUD {
                 $bookings[] = $row;
             }
         }
+
+        //disconnect from database
+        $this->db->close();
+
         return $bookings;
     }
 
-    function retrieveBookingsForAnActivity($jsonParameters){
-
-    }
-
     function createNewBooking($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         // decode json parameters
         $jsonParameters = json_decode($jsonParameters, true);
@@ -163,47 +177,57 @@ class BookingCRUD {
 
             $this->db->query($query);
 
+            //disconnect from database
+            $this->db->close();
+
             // decrement placesAvalaible attribute of an activity
+            //$this->activityCRUD->updateActivity(json_encode(array(array("activityID"=>$localActivityID)), array("placesAvailable"=>'Activity.placesAvailable - 1')));
         }
-
-
-
 
     }
 
 
     function deleteBookings($jsonParameters /*booking_id*/){
 
-         //decode json string provided
-         $parameters = json_decode($jsonParameters, true);
-print_r($parameters);
-         // if empty parameters, return 
-         if (!$parameters) {
-             return "No parameters provided.";
-         }
+        // connect to database
+        $this->connectLocal();
 
-         $deleteUserBookingQuery = "DELETE FROM UserToBooking";
-         $deleteUserBookingQuery .= " WHERE bookingID=".$parameters["bookingID"].' AND userID='.$parameters['userID'];
+        //decode json string provided
+        $parameters = json_decode($jsonParameters, true);
+
+        // if empty parameters, return 
+        if (!$parameters) {
+            return "No parameters provided.";
+        }
+
+        $deleteUserBookingQuery = "DELETE FROM UserToBooking";
+        $deleteUserBookingQuery .= " WHERE bookingID=".$parameters["bookingID"].' AND userID='.$parameters['userID'];
 
         $deleteActivityBookingQuery = "DELETE FROM BookingToActivivy";
         $deleteActivityBookingQuery .= " WHERE bookingID=".$parameters["bookingID"].' AND activityID='.$parameters['activityID'];
 
-         $query = "DELETE FROM Booking";
-         $query .= " WHERE bookingID=".$parameters["bookingID"];
+        $query = "DELETE FROM Booking";
+        $query .= " WHERE bookingID=".$parameters["bookingID"];
              
  
-         // Execute queries
+        // Execute queries
         $this->db->query($deleteUserBookingQuery);
         $this->db->query($deleteActivityBookingQuery);
-         $result = $this->db->query($query);
+        $result = $this->db->query($query);
+
+        //disconnect from database
+        $this->db->close();
  
-         if ($result) {
-             return "Record(s) deleted successfully.";
-         } else {
-             return "Error deleting record(s): " . $this->db->error;
-         }
+        if ($result) {
+            return "Record(s) deleted successfully.";
+        } else {
+            return "Error deleting record(s): " . $this->db->error;
+        }
  
      }
 }
 
+
+$b = new BookingCRUD();
+print_r($b->retriverAllBookings());
 ?>

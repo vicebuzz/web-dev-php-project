@@ -33,7 +33,7 @@ class DBConnect
     function connect()
     {
         $mysqli = new MySQLi();
-        $mysqli->init();
+        //$mysqli->init();
         if (!$mysqli) {
             echo "<p>Initalising MySQLi failed</p>";
         } else {

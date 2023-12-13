@@ -10,9 +10,20 @@ class UserCRUD {
         $db_connect_users = new DBConnect();
         $db_connect_users->loadData();
         $this->db = $db_connect_users->connect();
+
+    }
+
+    function connectLocal(){
+
+        $db_connect_booking = new DBConnect();
+        $db_connect_booking->loadData();
+        $this->db = $db_connect_booking->connect();
+
     }
 
     function getUsers() {
+        // connect to database
+        $this->connectLocal();
         // query to select all users records
         $sql = 'SELECT * FROM Users';
         // fetch result and create an empty array
@@ -22,12 +33,16 @@ class UserCRUD {
         while ($row = $result->fetch_assoc()) {
             $users[] = $row;
         }
+        //disconnect from database
+        $this->db->close();
         // return filled up array
         return $users;
     }
 
     function getUser($jsonParameters) {
 
+        // connect to database
+        $this->connectLocal();
         //decode json string provided
         $parameters = json_decode($jsonParameters, true);
         print_r($parameters);
@@ -59,6 +74,8 @@ class UserCRUD {
             while ($row = $result->fetch_assoc()) {
                 $users[] = $row;
             }
+            //disconnect from database
+            $this->db->close();
             return $users;
         } else {
             return null;
@@ -66,6 +83,9 @@ class UserCRUD {
     }
 
     function createUser($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         $parameters = json_decode($jsonParameters, true);
 
@@ -103,14 +123,21 @@ class UserCRUD {
 
         if ($result) {
             $lastInsertedId = $this->db->insert_id;
+            //disconnect from database
+            $this->db->close();
             return array("userID"=>$lastInsertedId);
         } else {
+            //disconnect from database
+            $this->db->close();
             return "Error registering a new user " . $this->db->error;
         }
 
     }
 
     function updateUser($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         //decode json string provided
         $parameters = json_decode($jsonParameters, true);
@@ -178,6 +205,9 @@ class UserCRUD {
         // Execute the query
         $result = $this->db->query($query);
 
+        //disconnect from database
+        $this->db->close();
+
         // error checking
         if ($result) {
             return "User record(s) updated successfully.";
@@ -190,6 +220,9 @@ class UserCRUD {
     }
 
     function deleteUser($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         //decode json string provided
         $parameters = json_decode($jsonParameters, true);
@@ -218,6 +251,9 @@ class UserCRUD {
         // Execute the query
         $result = $this->db->query($query);
 
+        //disconnect from database
+        $this->db->close();
+
         if ($result) {
             return "Record(s) deleted successfully.";
         } else {
@@ -227,7 +263,12 @@ class UserCRUD {
     }
 
     function deleteAll(){
+
+        // connect to database
+        $this->connectLocal();
         $result = $this->db->query("DELETE FROM Users");
+        //disconnect from database
+        $this->db->close();
 
         if ($result) {
             return "Records deleted successfully.";
@@ -237,6 +278,9 @@ class UserCRUD {
     }
 
     function isUserAnAdmin ($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         $parameters = json_decode($jsonParameters, true);
 
@@ -263,18 +307,25 @@ class UserCRUD {
 
         if ($result) {
             $isadmin = $result->fetch_assoc()["admin"];
+            //disconnect from database
+            $this->db->close();
             if ($isadmin) {
                 return true;
             } else {
                 return false;
             }
         } else {
+            //disconnect from database
+            $this->db->close();
             return null;
         }
     }
 
 
     function getUsersPeriodRegistrationDate($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         // decode json string
         $parameters = json_decode($jsonParameters, true);
@@ -295,13 +346,20 @@ class UserCRUD {
             while ($row = $result->fetch_assoc()) {
                 $users[] = $row;
             }
+            //disconnect from database
+            $this->db->close();
             return $users;
         } else {
+            //disconnect from database
+            $this->db->close();
             return null;
         }
     }
 
     public function getMinRegistrationDate() {
+
+        // connect to database
+        $this->connectLocal();
 
         // Query to get the minimal subscription date
         $query = "SELECT MIN(registrationDate) AS min_date FROM Users";
@@ -309,13 +367,20 @@ class UserCRUD {
 
         if ($result) {
             $row = $result->fetch_assoc();
+            //disconnect from database
+            $this->db->close();
             return $row['min_date'];
         } else {
+            //disconnect from database
+            $this->db->close();
             return "Error getting minimal subscription date: " . $this->db->error;
         }
     }
 
     public function getMaxRegistrationDate() {
+
+        // connect to database
+        $this->connectLocal();
 
         // Query to get the maximum subscription date
         $query = "SELECT MAX(registrationDate) AS max_date FROM Users";
@@ -323,8 +388,12 @@ class UserCRUD {
 
         if ($result) {
             $row = $result->fetch_assoc();
+            //disconnect from database
+            $this->db->close();
             return $row['max_date'];
         } else {
+            //disconnect from database
+            $this->db->close();
             return "Error getting maximum subscription date: " . $this->db->error;
         }
     }
