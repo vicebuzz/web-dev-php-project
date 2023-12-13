@@ -2,6 +2,7 @@
 require_once "../resources/crud/userCrud.php";
 require_once "../resources/crud/bookingCrud.php";
 require_once "../resources/crud/activityCrud.php";
+require_once "../resources/crud/userCrud.php";
 session_start();
 $bookingCRUD = new BookingCRUD();
 $activityCRUD = new ActivityCRUD();
@@ -13,7 +14,7 @@ $username = $_SESSION['username'];
 $user = $userCRUD->getUser(json_encode(array('userID'=>$_SESSION['userID'])));
 
 if (!$user[0]['isAdmin']){
-  header("../../public/login.php");
+    header("location: login.php");
 }
 
 // Retrieve bookings
