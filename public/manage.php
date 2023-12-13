@@ -89,7 +89,6 @@ $activities = $activityCRUD->getAllActivities();
                             echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
                             echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
                             echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
-                            // Add more activity details if necessary
                             echo '</div>';
                             echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
                             echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
@@ -108,7 +107,6 @@ $activities = $activityCRUD->getAllActivities();
                             echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
                             echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
                             echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
-                            // Add more activity details if necessary
                             echo '</div>';
                             echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
                             echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
@@ -130,8 +128,6 @@ $activities = $activityCRUD->getAllActivities();
                 Your booked activities.
             </p>
             <div class="activity-cards">
-                <!-- Booked activity cards dynamically added using PHP -->
-
                 <?php
                 // Loop through each activity to display editable forms
                 foreach ($bookings as $booking) {
@@ -144,8 +140,6 @@ $activities = $activityCRUD->getAllActivities();
                     echo '<p><strong>Price: </strong> &nbsp£' . $booking['price'] . '</p>';
                     echo '<p><strong>Room: </strong> &nbsp' .  $booking['room'] . '</p>';
                     echo '</div>';
-                    // Add more activity details if necessary
-
                     echo '<form action="../resources/user-inputs/remove-booking.php" method="post">';
                     echo '<input type="hidden" name="activityID" value="' . $booking['activityID'].'">';
                     echo '<input type="hidden" name="bookingID" value="' . $booking['bookingID'].'">';
@@ -243,8 +237,6 @@ $activities = $activityCRUD->getAllActivities();
                     echo '<input type="text" id="edit-activity-room" name="edit_activity_room" value="' . $activity['room'] . '" placeholder="Enter activity room" required>';
                     echo '<input type="hidden" name="activityID" value="' . $activity['activityID'].'">';
                     echo '</div>';
-                    // Add other fields to edit as necessary
-
 
                     // Add update and delete buttons
                     echo '<div class="form-button-group">';
