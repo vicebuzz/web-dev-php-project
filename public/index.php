@@ -31,10 +31,6 @@ $activities = $activityCRUD->getAllActivities();
       <h2 class="welcome-heading">Welcome to FreeSpace</h2>
       <p class="welcome-text">Your local gym for freedom, exploration and personal gain</p>
       <div class="centered-icons">
-        <!-- Place your centered icons here -->
-        <!-- Example: -->
-        <!-- <img src="icon1.png" alt="Icon 1">
-             <img src="icon2.png" alt="Icon 2"> -->
       </div>
       <a href="login.php" class="get-started-button">Get Started</a>
     </div>
