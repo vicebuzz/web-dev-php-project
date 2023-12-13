@@ -302,7 +302,6 @@ $activities = $activityCRUD->getAllActivities();
 <div class="summary-section">
     <div class="summary-content">
         <p>&copy; 2023 FreeSpace. All rights reserved.</p>
-        <!-- Additional summary content or copyright information -->
     </div>
 </div>
 </footer>
