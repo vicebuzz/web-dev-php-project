@@ -47,7 +47,7 @@ class UserCRUD {
         $parameters = json_decode($jsonParameters, true);
         print_r($parameters);
         // set up query template
-        $query = "SELECT * FROM Users";
+        $query = "SELECT * FROM User";
         
         // initialise conditions array
         $conditions = [];
@@ -55,10 +55,12 @@ class UserCRUD {
         // go through json provided and see what conditions are supplied
         foreach ($parameters as $key => $value) {
             if ($key == "username" || $key == "email" || $key == "userPassword" || $key =="phoneNumber") {
-                $hash_value = hash("sha1", $value);
+                $escapedInput = mysqli_real_escape_string($this->db, $value);
+                $hash_value = hash("sha1", $escapedInput);
                 $conditions[] = "$key = '$hash_value'";
             } else {
-                $conditions[] = "$key = '$value'";
+                $escapedInput = mysqli_real_escape_string($this->db, $value);
+                $conditions[] = "$key = '$escapedInput'";
             }
         }
 
@@ -169,14 +171,16 @@ class UserCRUD {
 
         foreach ($update_parameters as $key => $value) {
             if ($key == "username" || $key == "email" || $key == "userPassword"|| $key =="phoneNumber") {
-                $hash_value = hash("sha1", $value);
+                $escapedInput = mysqli_real_escape_string($this->db, $value);
+                $hash_value = hash("sha1", $escapedInput);
                 $updates[] = "$key = '$hash_value'";
             }
             elseif ($key=="userID"){
                 $updates[] = "$key = $value";
             }
             else {
-                $updates[] = "$key = '$value'";
+                $escapedInput = mysqli_real_escape_string($this->db, $value);
+                $updates[] = "$key = '$escapedInput'";
             }
         }
 
@@ -401,5 +405,4 @@ class UserCRUD {
 
 
 }
-
 ?>
