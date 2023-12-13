@@ -24,7 +24,7 @@ $activities = $activityCRUD->getAllActivities();
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css">
-  <link rel="stylesheet" href="styles/manage.css"> <!-- Include manage.css for dashboard styles -->
+  <link rel="stylesheet" href="styles/manage.css"> 
 </head>
 <body>
   <header>
@@ -41,7 +41,6 @@ $activities = $activityCRUD->getAllActivities();
       <h2 class="welcome-heading">Welcome <?= $username ?>! </h2>
       <p class="welcome-text">Your local dashboard page for your activities, booking new activities and adjusting your personal information!</p>
       <div class="centered-icons">
-        <!-- Place your centered icons here -->
       </div>
     </div>
   </header>
@@ -81,7 +80,6 @@ $activities = $activityCRUD->getAllActivities();
                             echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
                             echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
                             echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
-                            // Add more activity details if necessary
                             echo '</div>';
                             echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
                             echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
@@ -100,7 +98,6 @@ $activities = $activityCRUD->getAllActivities();
                             echo '<p><strong>Date: </strong> &nbsp ' . $activity['activityDate'] . '</p>';
                             echo '<p><strong>Price: </strong> &nbsp£' . $activity['price'] . '</p>';
                             echo '<p><strong>Room: </strong> &nbsp' . $activity['room'] . '</p>';
-                            // Add more activity details if necessary
                             echo '</div>';
                             echo '<form action="../resources/user-inputs/create-booking.php" method="post">';
                             echo '<input type="hidden" name="activityID" value="' . $activity['activityID'] . '">';
@@ -122,8 +119,6 @@ $activities = $activityCRUD->getAllActivities();
           Your booked activities.
         </p>
         <div class="activity-cards">
-          <!-- Booked activity cards dynamically added using PHP -->
-
             <?php
               // Loop through each activity to display editable forms
                   foreach ($bookings as $booking) {
@@ -136,8 +131,6 @@ $activities = $activityCRUD->getAllActivities();
                       echo '<p><strong>Price: </strong> &nbsp£' . $booking['price'] . '</p>';
                       echo '<p><strong>Room: </strong> &nbsp' .  $booking['room'] . '</p>';
                       echo '</div>';
-                      // Add more activity details if necessary
-
                       echo '<form action="../resources/user-inputs/remove-booking.php" method="post">';
                       echo '<input type="hidden" name="activityID" value="' . $booking['activityID'].'">';
                       echo '<input type="hidden" name="bookingID" value="' . $booking['bookingID'].'">';
@@ -153,34 +146,44 @@ $activities = $activityCRUD->getAllActivities();
 
 
         <section class="activities-section user-account-section">
-            <h2 class="activities-heading">Account Details</h2>
-            <form class="profile-form" id="update-profile-form" action="../resources/user-inputs/update_user_info_process.php" method="post">
+        <h2 class="activities-heading">Account Details</h2>
+    
+            <form class="profile-form" id="update-username-form" action="../resources/user-inputs/update_user_info_process.php" method="post">
                 <div class="form-group">
                     <label for="username">
                         <i class="fas fa-user"></i> Change Username:
                     </label>
-                    <input type="text" id="username" name="username" value="" required>
+                    <input type="text" id="username" name="username" required>
                     <button type="submit" class="register-btn" name="update-type" value="update-username">Submit</button>
                 </div>
+            </form>
+        
+            <form class="profile-form" id="update-email-form" action="../resources/user-inputs/update_user_info_process.php" method="post">
                 <div class="form-group">
                     <label for="email">
                         <i class="fas fa-envelope"></i> Change Email Address:
                     </label>
-                    <input type="email" id="email" name="email" value=""required>
+                    <input type="email" id="email" name="email" required>
                     <button type="submit" class="register-btn" name="update-type" value="update-email">Submit</button>
                 </div>
+            </form>
+        
+            <form class="profile-form" id="update-password-form" action="../resources/user-inputs/update_user_info_process.php" method="post">
                 <div class="form-group">
                     <label for="password">
                         <i class="fas fa-lock"></i> Change Password:
                     </label>
-                    <input type="password" id="password" name="password" value=""required>
+                    <input type="password" id="password" name="password" required>
                     <button type="submit" class="register-btn" name="update-type" value="update-password">Submit</button>
                 </div>
+            </form>
+        
+            <form class="profile-form" id="update-phone-form" action="../resources/user-inputs/update_user_info_process.php" method="post">
                 <div class="form-group">
                     <label for="phone">
                         <i class="fas fa-phone"></i> Change Phone Number:
                     </label>
-                    <input type="tel" id="phone" name="phone" value=""required>
+                    <input type="tel" id="phone" name="phone" required>
                     <button type="submit" class="register-btn" name="update-type" value="update-phone">Submit</button>
                 </div>
             </form>
@@ -192,7 +195,6 @@ $activities = $activityCRUD->getAllActivities();
     <div class="summary-section">
       <div class="summary-content">
         <p>&copy; 2023 FreeSpace. All rights reserved.</p>
-        <!-- Additional summary content or copyright information -->
       </div>
     </div>
   </footer>
