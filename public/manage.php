@@ -49,7 +49,6 @@ $activities = $activityCRUD->getAllActivities();
         <h2 class="welcome-heading">Welcome <?= $username ?>! </h2>
         <p class="welcome-text">Your local dashboard page for your activities, booking new activities and adjusting your personal information!</p>
         <div class="centered-icons">
-            <!-- Place your centered icons here -->
         </div>
     </div>
 </header>
