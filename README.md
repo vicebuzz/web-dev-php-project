@@ -26,4 +26,4 @@ You can also create your own user account, should you wish to, using our "Regist
 
 ---
 
-Please note that the Admin User's login details are missing. You might want to add that information for future reference.
+
