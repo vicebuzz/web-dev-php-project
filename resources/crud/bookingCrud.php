@@ -131,7 +131,7 @@ class BookingCRUD {
         if ($result->fetch_assoc()) {
             // booking already exists
             $success = false;
-            header("location: ../../public/desk.php?message=".urlencode("Already booked for this activity")."&success=" .($success ? 'true' : 'false'));
+            echo '<script>alert("You are already booked for this activity!"); window.location.href = document.referrer;</script>';
             exit();
         } else{
             // create a new booking record
