@@ -33,7 +33,13 @@ $activities = $activityCRUD->getAllActivities();
       <h1 class="title">FreeSpace</h1>
       <nav>
         <ul>
-          <li><a class="navbar-buttons" href="login.php">Logout</a></li>
+          <li>
+            <form action="logout.php" action = '' method="post">
+              <div class="form-group">
+                <button class="navbar-buttons" type="submit">Logout</button>
+              </div>
+            </form>
+          </li>
         </ul>
       </nav>
     </div>
@@ -53,7 +59,7 @@ $activities = $activityCRUD->getAllActivities();
         <section class="activities-section">
             <h2 class="activities-heading">Browse Activities</h2>
             <form class="padding-below" method="GET" action="">
-                <input type="text" name="search" placeholder="Search activities...">
+                <input type="text" name="search" placeholder="Search for Activities (leave blank to search for all activities)">
                 <button class="register-btn" type="submit">Search</button>
             </form>
             <div></div>
@@ -71,8 +77,10 @@ $activities = $activityCRUD->getAllActivities();
                         $filteredActivities = array_filter($activities, function ($activity) use ($search) {
                             return strpos(strtolower($activity['activityName']), $search) !== false;
                         });
-                        // Display filtered activities
-                        foreach ($filteredActivities as $activity) {
+
+                        if ($filteredActivities){
+                          // Display filtered activities
+                          foreach ($filteredActivities as $activity) {
                             echo '<div class="activity-card">';
                             echo '<img src="./img/' . $activity['image'] . '" alt="' . $activity['activityName'] . '">';
                             echo '<h3>' . $activity['activityName'] . '</h3>';
@@ -88,7 +96,12 @@ $activities = $activityCRUD->getAllActivities();
                             echo '<button type="submit" class ="register-btn" name="add-booking" >JOIN</button>';
                             echo '</form>';
                             echo '</div>';
+                          }
+                        } else{
+                          echo "You search query returned no result";
                         }
+                        
+                        
                     } else {
                         // Display all activities if no search query is present
                         foreach ($activities as $activity) {

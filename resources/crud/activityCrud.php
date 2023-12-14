@@ -7,12 +7,24 @@ class ActivityCRUD {
 
     function __construct() {
 
-        $db_connect_activity = new DBConnect();
-        $db_connect_activity->loadData();
-        $this->db = $db_connect_activity->connect();
+        $db_connect_booking = new DBConnect();
+        $db_connect_booking->loadData();
+        $this->db = $db_connect_booking->connect();
+
+    }
+
+    function connectLocal(){
+
+        $db_connect_booking = new DBConnect();
+        $db_connect_booking->loadData();
+        $this->db = $db_connect_booking->connect();
+
     }
 
     function getAllActivities(){
+
+        // connect to database
+        $this->connectLocal();
 
         // query to select all activities
         $sql = 'SELECT * FROM Activity';
@@ -26,11 +38,17 @@ class ActivityCRUD {
             $activities[] = $row;
         }
 
+        //disconnect from database
+        $this->db->close();
+
         // return filled up array
         return $activities;
     }
 
     function getActivities($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         // decode parameters passed in json string
         $parameters = json_decode($jsonParameters);
@@ -58,14 +76,21 @@ class ActivityCRUD {
             while ($row = $result->fetch_assoc()) {
                 $activities[] = $row;
             }
+            //disconnect from database
+            $this->db->close();
             return $activities;
         } else {
+            //disconnect from database
+            $this->db->close();
             return null;
         }
 
     }
 
     public function searchActivities($searchQuery){
+
+        // connect to database
+        $this->connectLocal();
         
         // create query
         $query = "SELECT * FROM Activity WHERE activity_name LIKE %$searchQuery% OR activity_description LIKE %$searchQuery%";
@@ -78,14 +103,21 @@ class ActivityCRUD {
             while ($row = $result->fetch_assoc()) {
                 $activities[] = $row;
             }
+            //disconnect from database
+            $this->db->close();
             return $activities;
         } else {
+            //disconnect from database
+            $this->db->close();
             return null;
         }
 
     }
 
     public function getActivitiesByPeriod($jsonParameters) {
+
+        // connect to database
+        $this->connectLocal();
 
         // Decode the JSON string to an associative array
         $parameters = json_decode($jsonParameters, true);
@@ -106,13 +138,20 @@ class ActivityCRUD {
             while ($row = $result->fetch_assoc()) {
                 $activities[] = $row;
             }
+            //disconnect from database
+            $this->db->close();
             return $activities;
         } else {
+            //disconnect from database
+            $this->db->close();
             return null;
         }
     }
 
     public function getMinActivityDate() {
+
+        // connect to database
+        $this->connectLocal();
 
         // Query to get the minimal activity date
         $query = "SELECT MIN(activityDate) AS min_date FROM Activity";
@@ -120,27 +159,42 @@ class ActivityCRUD {
 
         if ($result) {
             $row = $result->fetch_assoc();
+            //disconnect from database
+            $this->db->close();
             return $row['min_date'];
         } else {
+            //disconnect from database
+            $this->db->close();
             return "Error getting minimal activity date: " . $this->db->error;
         }
     }
 
     public function getMaxActivityDate() {
 
+        // connect to database
+        $this->connectLocal();
+
         // Query to get the maximum activity date
         $query = "SELECT MAX(activityDate) AS max_date FROM Activity";
         $result = $this->db->query($query);
 
+        
         if ($result) {
             $row = $result->fetch_assoc();
+            //disconnect from database
+            $this->db->close();
             return $row['max_date'];
         } else {
+            //disconnect from database
+            $this->db->close();
             return "Error getting maximum activity date: " . $this->db->error;
         }
     }
 
     public function updateActivity($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         //decode json string provided
         $parameters = json_decode($jsonParameters, true);
@@ -184,6 +238,9 @@ class ActivityCRUD {
         // Execute the query
         $result = $this->db->query($query);
 
+        //disconnect from database
+        $this->db->close();
+
         // error checking
         if ($result) {
             return "Activity record(s) updated successfully.";
@@ -196,6 +253,9 @@ class ActivityCRUD {
     }
 
     public function createActivity($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         // decode json strings to get parameters
         $parameters = json_decode($jsonParameters, true);
@@ -231,6 +291,9 @@ class ActivityCRUD {
         echo $query;
         $result = $this->db->query($query);
 
+        //disconnect from database
+        $this->db->close();
+
         if ($result){
             return 1;
         } else{
@@ -239,6 +302,9 @@ class ActivityCRUD {
     }
 
     public function deleteActivity($jsonParameters){
+
+        // connect to database
+        $this->connectLocal();
 
         //decode json string provided
         $parameters = json_decode($jsonParameters, true);
@@ -262,6 +328,9 @@ class ActivityCRUD {
         // Execute the query
         $result = $this->db->query($query);
 
+        //disconnect from database
+        $this->db->close();
+
         if ($result) {
             return "Record(s) deleted successfully.";
         } else {
@@ -272,9 +341,10 @@ class ActivityCRUD {
 
     
 }
+$activityCRUD = new ActivityCRUD();
 #$activityCRUD->updateActivity('{"selectParameters":{"activity_name":"Tennis"},"updateParameters":{"activity_name":"Swimming"}}');
 #$activityCRUD->deleteActivity('{"activity_name":"Swimming"}');
-#print_r($activityCRUD->getAllActivities())
+print_r($activityCRUD->getAllActivities())
 #echo $activityCRUD->getAllActivities()[4]["id"]
 #$activityCRUD->createActivity('{"activity_name":"Tennis","activity_description":"test desc","places_available":30,"activity_date":"2023-12-11 12:00:00"}');
 #print_r($activityCRUD->getActivitiesByPeriod('{"startDate":"2023-12-01 12:00:00"}'))

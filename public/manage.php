@@ -41,7 +41,13 @@ $activities = $activityCRUD->getAllActivities();
         <h1 class="title">FreeSpace</h1>
         <nav>
             <ul>
-                <li><a class="navbar-buttons" href="login.php">Logout</a></li>
+                <li>
+                  <form action="logout.php" action = '' method="post">
+                    <div class="form-group">
+                      <button class="navbar-buttons" type="submit">Logout</button>
+                    </div>
+                  </form>
+                </li>
             </ul>
         </nav>
     </div>
