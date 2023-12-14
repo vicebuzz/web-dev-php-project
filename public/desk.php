@@ -15,6 +15,11 @@ $bookings = $bookingCRUD->retrieveUserBookings(json_encode(array("userID"=>$_SES
 // Retrieve bookings
 $activities = $activityCRUD->getAllActivities();
 
+if (isset($_SESSION['scroll_position'])) {
+    echo '<script>window.scrollTo(0, ' . $_SESSION['scroll_position'] . ');</script>';
+    unset($_SESSION['scroll_position']); // Clear the stored scroll position
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -209,6 +214,12 @@ $activities = $activityCRUD->getAllActivities();
       </div>
     </div>
   </footer>
+  <?php
+        // Save scroll position in session if HTTP_REFERER is set
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $_SESSION['scroll_position'] = $_SERVER['HTTP_REFERER'];
+        }
+        ?>    
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
   <script src="js/manage.js"></script>
 </body>
