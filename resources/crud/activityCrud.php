@@ -219,7 +219,14 @@ class ActivityCRUD {
             room,
             image
             ) 
-            VALUES ('$activity_name','$activity_description',$places_available,'$activity_date',$activityPrice,'$activityRoom','$activityImage')";
+            VALUES (
+                '$activity_name', 
+                '$activity_description', 
+                '$places_available', 
+                '$activity_date'
+                '$activityPrice',
+                '$activityRoom',
+                '$activityImage')";
         
         echo $query;
         $result = $this->db->query($query);
