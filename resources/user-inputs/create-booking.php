@@ -2,7 +2,6 @@
 require_once "../crud/bookingCrud.php";
 session_start();
 $activityID = $_POST['activityID'];
-//echo "$activityID<br>";
 function createBooking($activityID){
     $bookingCRUD = new BookingCRUD();
 

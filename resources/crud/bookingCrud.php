@@ -231,8 +231,4 @@ class BookingCRUD {
  
      }
 }
-
-
-$b = new BookingCRUD();
-print_r($b->retriverAllBookings());
 ?>

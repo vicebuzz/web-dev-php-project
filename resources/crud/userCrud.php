@@ -20,7 +20,7 @@ class UserCRUD {
         $this->db = $db_connect_booking->connect();
 
     }
-
+// Quality Of Life Function that we haven't used but potentially may need in the future
     function getUsers() {
         // connect to database
         $this->connectLocal();
@@ -45,9 +45,8 @@ class UserCRUD {
         $this->connectLocal();
         //decode json string provided
         $parameters = json_decode($jsonParameters, true);
-        print_r($parameters);
         // set up query template
-        $query = "SELECT * FROM User";
+        $query = "SELECT * FROM Users";
         
         // initialise conditions array
         $conditions = [];
@@ -102,7 +101,6 @@ class UserCRUD {
        // $subscription_type = $parameters["subscription_type"];
        // $preferred_categories = $parameters["preferred_categories"];
         $isAdmin = $parameters["isAdmin"];
-        print_r($parameters);
         // create and execute a query
         $sql = "INSERT INTO Users (
             username, 
@@ -155,9 +153,7 @@ class UserCRUD {
         $select_parameters = $parameters[0];
         $update_parameters = $parameters[1];
 
-        echo  "<br>  oeiwhgoiwheoighwoiehgoiwh";
-        echo  "<br>  $select_parameters";
-        echo  "<br>  $update_parameters";
+
         // if those parameters are empty return error statement
         if (empty($select_parameters) || empty($update_parameters)) {
             return "Invalid JSON format. Please provide both 'criteria' and 'updateData'.";
@@ -265,7 +261,7 @@ class UserCRUD {
         }
 
     }
-
+// Quality Of Life Function that we haven't used but potentially may need in the future
     function deleteAll(){
 
         // connect to database
@@ -326,82 +322,6 @@ class UserCRUD {
     }
 
 
-    function getUsersPeriodRegistrationDate($jsonParameters){
-
-        // connect to database
-        $this->connectLocal();
-
-        // decode json string
-        $parameters = json_decode($jsonParameters, true);
-
-        // Check if startDate and endDate are provided, set default values if not
-        $startDate = isset($parameters['startDate']) ? $parameters['startDate'] : $this->getMinRegistrationDate();
-        $endDate = isset($parameters['endDate']) ? $parameters['endDate'] : $this->getMaxRegistrationDate();
-
-        // Build the query
-        $query = "SELECT * FROM Users WHERE registrationDate BETWEEN '$startDate' AND '$endDate'";
-
-        // Execute the query
-        $result = $this->db->query($query);
-
-        if ($result) {
-            // Fetch the user record
-            $users = array();
-            while ($row = $result->fetch_assoc()) {
-                $users[] = $row;
-            }
-            //disconnect from database
-            $this->db->close();
-            return $users;
-        } else {
-            //disconnect from database
-            $this->db->close();
-            return null;
-        }
-    }
-
-    public function getMinRegistrationDate() {
-
-        // connect to database
-        $this->connectLocal();
-
-        // Query to get the minimal subscription date
-        $query = "SELECT MIN(registrationDate) AS min_date FROM Users";
-        $result = $this->db->query($query);
-
-        if ($result) {
-            $row = $result->fetch_assoc();
-            //disconnect from database
-            $this->db->close();
-            return $row['min_date'];
-        } else {
-            //disconnect from database
-            $this->db->close();
-            return "Error getting minimal subscription date: " . $this->db->error;
-        }
-    }
-
-    public function getMaxRegistrationDate() {
-
-        // connect to database
-        $this->connectLocal();
-
-        // Query to get the maximum subscription date
-        $query = "SELECT MAX(registrationDate) AS max_date FROM Users";
-        $result = $this->db->query($query);
-
-        if ($result) {
-            $row = $result->fetch_assoc();
-            //disconnect from database
-            $this->db->close();
-            return $row['max_date'];
-        } else {
-            //disconnect from database
-            $this->db->close();
-            return "Error getting maximum subscription date: " . $this->db->error;
-        }
-    }
-    
 
 
 }

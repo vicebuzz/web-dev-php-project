@@ -7,7 +7,6 @@ $activityID = $_POST['activityID'];
 
 function deleteBooking($userID, $activityID, $bookingID){
 $bookingCrud = new BookingCRUD();
-echo "<br>fjwbfkwb $activityID, $bookingID";
     $paramArray = array(
         "userID"=>$userID,
         "bookingID"=>$bookingID,

@@ -62,37 +62,11 @@ class DBConnect
         return $mysqli;
     }
 
-    // TODO: error handling
-    function close_connection()
-    {
-        $this->db->close();
-    }
+
 }
 
 
 
-// $db_connect = new DBConnect();
-// $db_connect->loadData();
-// $database = $db_connect->connect();
 
-// $query = "SELECT * FROM User";
-// $result = $database->query($query);
-
-// if ($result) {
-
-//     if ($result->num_rows > 0) {
-
-//         while ($row = $result->fetch_assoc()) {
-//             echo "ID: " . $row['id'] . "<br>";
-//             echo "Name: " . $row['username'] . "<br>";
-//             echo "Email: " . $row['email'] . "<br>";
-//             echo "<br>";
-//         }
-//     } else {
-//         echo "No results found.";
-//     }
-// } else {
-//     echo "Query failed: " . $mysqli->error;
-// }
 
 ?>

@@ -10,16 +10,12 @@ function loginUser($username,$password){
 
     $jsonString= json_encode($data);
     $userCRUD = new UserCRUD();
-    echo"<br>1";
     $result = $userCRUD->getUser($jsonString);
-    echo"<br>2";
-    print_r($result);
+
     if($result[0]["userPassword"] == hash('sha1',$password)){
-        echo"<br> success <br>";
         session_start();
         $_SESSION['userID'] = $result[0]['userID'];
         $_SESSION['username'] = $username;
-        print_r($_SESSION);
         $success = true;
         if($result[0]["isAdmin"]==0){
             header("location: ../../public/desk.php");
@@ -32,7 +28,6 @@ function loginUser($username,$password){
     }
     else{
         header("location: ../../public/login.php?message=".urlencode("Incorrect Login Details")."&success=" .($success ? 'true' : 'false'));
-        //echo '<script>alert("Invalid password. Please try again")</script>';
         exit();
     }
 }
