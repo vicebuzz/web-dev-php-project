@@ -14,7 +14,9 @@ $bookingCrud = new BookingCRUD();
     );
     $jsonArray = json_encode($paramArray);
 $bookingCrud->deleteBookings($jsonArray);
-    header("location: ../../public/desk.php");
+
+    echo '<script>alert("Booking deleted successfully."); window.location.href = document.referrer;</script>';
+    exit();
 }
 
 deleteBooking($userID,$activityID,$bookingID);

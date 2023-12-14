@@ -35,9 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
   forms.forEach(function(form) {
     form.addEventListener("submit", function(event) {
       event.preventDefault(); // Prevent the default form submission behavior
-      // Perform any additional actions here (optional)
-      // Manually submit the form via JavaScript
-      // You may perform form data validation or other tasks here before submission
+
       form.submit(); // Manually submit the form
     });
   });

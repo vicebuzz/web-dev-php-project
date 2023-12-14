@@ -11,7 +11,8 @@ function createBooking($activityID){
     );
 
     $bookingCRUD->createNewBooking(json_encode($paramArray));
-    header("location: ../../public/desk.php#activity-cards-section");
+
+    echo '<script>alert("Successfully made your booking!"); window.location.href = document.referrer;</script>';
     exit();
 }
 

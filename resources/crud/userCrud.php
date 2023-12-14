@@ -248,6 +248,19 @@ class UserCRUD {
             }
         }
 
+        // increment the number of places available for activities user booked by 1
+        $incrementQuery = "UPDATE Activity INNER JOIN BookingToActivivy ON Activity.activityID = BookingToActivivy.activityID INNER JOIN Booking ON BookingToActivivy.bookingID = Booking.bookingID INNER JOIN UserToBooking UTB on Booking.bookingID = UTB.bookingID INNER JOIN Users U on UTB.userID = U.userID SET Activity.placesAvailable = Activity.placesAvailable + 1";
+        $incrementQuery .= " WHERE U.userID =".$parameters['userID'];
+
+        error_log($incrementQuery);
+
+        $this->db->query($incrementQuery);
+
+        // delete on cascade
+        $deleteUserBookingQuery = "DELETE FROM UserToBooking";
+        $deleteUserBookingQuery .= ' WHERE userID='.$parameters['userID'];
+        $this->db->query($deleteUserBookingQuery);
+
         $query = "DELETE FROM Users";
 
         // Combine conditions with AND

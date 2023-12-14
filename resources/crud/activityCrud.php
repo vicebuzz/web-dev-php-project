@@ -167,25 +167,9 @@ class ActivityCRUD {
         $activityImage = $parameters["activityImage"];
 
 
-        $query = "INSERT INTO Activity (
-            activityName, 
-            activityDescription, 
-            placesAvailable, 
-            activityDate,
-            price,
-            room,
-            image
-            ) 
-            VALUES (
-                '$activity_name', 
-                '$activity_description', 
-                '$places_available', 
-                '$activity_date'
-                '$activityPrice',
-                '$activityRoom',
-                '$activityImage')";
-        
-        echo $query;
+        $query = "INSERT INTO Activity (activityName,activityDescription,placesAvailable,activityDate,price,room,image) 
+VALUES ('$activity_name','$activity_description',$places_available,'$activity_date',$activityPrice,'$activityRoom','$activityImage')";
+
         $result = $this->db->query($query);
 
         //disconnect from database

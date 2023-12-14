@@ -21,8 +21,8 @@ function createActivity(){
     );
     $jsonparam = json_encode($paramArray);
     $activityCrud ->createActivity($jsonparam);
-
-
+    echo '<script>alert("New Activity successfully created!"); window.location.href = document.referrer;</script>';
+    exit();
 }
 createActivity();
 

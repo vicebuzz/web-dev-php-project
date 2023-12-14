@@ -56,7 +56,7 @@ $activities = $activityCRUD->getAllActivities();
       <h2 class="my-desk-heading">My Dashboard</h2> 
       <p class="welcome-text">Below is your dashboard for updating and selecting your personal details, registered classes and other information.</p>
 
-        <section class="activities-section">
+        <section id="browse-activities" class="activities-section">
             <h2 class="activities-heading">Browse Activities</h2>
             <form class="padding-below" method="GET" action="">
                 <input type="text" name="search" placeholder="Search for Activities (leave blank to search for all activities)">
@@ -129,7 +129,7 @@ $activities = $activityCRUD->getAllActivities();
             </div>
         </section>
 
-      <section class="activities-section">
+      <section id="booked-activities" class="activities-section">
         <h2 class="activities-heading">Booked Activities</h2>
         <p class="activities-description">
           Your booked activities.
@@ -165,7 +165,7 @@ $activities = $activityCRUD->getAllActivities();
 
 
 
-        <section class="activities-section user-account-section">
+        <section id="account-details" class="activities-section user-account-section">
             <h2 class="activities-heading">Account Details</h2>
             <form class="profile-form" id="update-profile-form" action="../resources/user-inputs/update_user_info_process.php" method="post">
                 <div class="form-group">
