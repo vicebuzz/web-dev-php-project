@@ -118,7 +118,6 @@ class BookingCRUD {
             $localActivityDate = $activity[0]["activityDate"];
         }
 
-        //echo "$localActivityID<br>";
 
         $validationQuery = 'SELECT Users.userID, Booking.bookingID, Activity.activityID
                             FROM Users
@@ -177,8 +176,13 @@ class BookingCRUD {
             //disconnect from database
             $this->db->close();
 
-            // decrement placesAvalaible attribute of an activity
-            //$this->activityCRUD->updateActivity(json_encode(array(array("activityID"=>$localActivityID)), array("placesAvailable"=>'Activity.placesAvailable - 1')));
+            // decrement placesAvailable attribute of an activity
+            $currentPlaces = $this->activityCRUD->getActivities(json_encode(array('activityID'=>$localActivityID)))[0]['placesAvailable'];
+            $paramArray = array(
+                array("activityID"=>$localActivityID),
+                array("placesAvailable"=>$currentPlaces-1)
+                );
+            $this->activityCRUD->updateActivity(json_encode($paramArray));
         }
 
     }
