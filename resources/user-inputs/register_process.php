@@ -47,7 +47,7 @@ function registerUser($username,$password,$phoneNum,$email){
    else{
        $result = $userCRUD->createUser($jsonString);
         session_start();
-        $_SESSION['user_id'] = $result["user_id"];
+        $_SESSION['userID'] = $result["userID"];
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
         $_SESSION['phoneNum'] = $phoneNum;

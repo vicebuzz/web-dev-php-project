@@ -46,9 +46,7 @@ class BookingCRUD {
         if (!$Parameters){
             return "No parameters provided";
         }
-
         $userID = $Parameters["userID"];
-
         $query = "SELECT Activity.activityName, Activity.activityDescription, Activity.activityDate,Activity.image,Activity.room,Activity.price,Activity.activityID, Booking.bookingID
         FROM Activity
         INNER JOIN BookingToActivivy ON Activity.activityID = BookingToActivivy.activityID
@@ -56,7 +54,6 @@ class BookingCRUD {
         INNER JOIN UserToBooking ON Booking.bookingID = UserToBooking.bookingID
         INNER JOIN Users ON UserToBooking.userID = Users.userID
         WHERE Users.userID = $userID";
-
 
         $result = $this->db->query($query);
 
@@ -129,7 +126,7 @@ class BookingCRUD {
             VALUES (
                 '$localActivityDate'
             )";
-            echo $strippedQuery = str_replace(array("\r","\n"), '',$query);
+            $strippedQuery = str_replace(array("\r","\n"), '',$query);
             //echo $query;
             $result = $this->db->query($strippedQuery);
 
@@ -176,7 +173,6 @@ class BookingCRUD {
 
          //decode json string provided
          $parameters = json_decode($jsonParameters, true);
-print_r($parameters);
          // if empty parameters, return 
          if (!$parameters) {
              return "No parameters provided.";
