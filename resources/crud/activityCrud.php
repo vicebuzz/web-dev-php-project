@@ -211,6 +211,11 @@ class ActivityCRUD {
             return "No parameters provided.";
         }
 
+        // delete on cascade
+        $deleteActivityBookingQuery = "DELETE FROM BookingToActivivy";
+        $deleteActivityBookingQuery .= " WHERE activityID=".$parameters['activityID'];
+        $this->db->query($deleteActivityBookingQuery);
+
         $conditions = [];
 
         foreach ($parameters as $key => $value) {

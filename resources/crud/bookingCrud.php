@@ -178,10 +178,12 @@ class BookingCRUD {
 
             // decrement placesAvailable attribute of an activity
             $currentPlaces = $this->activityCRUD->getActivities(json_encode(array('activityID'=>$localActivityID)))[0]['placesAvailable'];
+            echo $currentPlaces;
             $paramArray = array(
                 array("activityID"=>$localActivityID),
                 array("placesAvailable"=>$currentPlaces-1)
                 );
+            print_r($paramArray);
             $this->activityCRUD->updateActivity(json_encode($paramArray));
         }
 
@@ -224,6 +226,15 @@ class BookingCRUD {
         $this->db->query($deleteActivityBookingQuery);
         $result = $this->db->query($query);
 
+        // increment placesAvailable attribute of an activity
+        $currentPlaces = $this->activityCRUD->getActivities(json_encode(array('activityID'=>$parameters['activityID'])))[0]['placesAvailable'];
+        echo $currentPlaces;
+        $paramArray = array(
+            array("activityID"=>$parameters['activityID']),
+            array("placesAvailable"=>$currentPlaces+1)
+        );
+        print_r($paramArray);
+        $this->activityCRUD->updateActivity(json_encode($paramArray));
         //disconnect from database
         $this->db->close();
  

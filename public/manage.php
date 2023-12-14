@@ -42,7 +42,7 @@ $activities = $activityCRUD->getAllActivities();
         <nav>
             <ul>
                 <li>
-                  <form action="logout.php" action = '' method="post">
+                    <form action="../resources/user-inputs/logout.php" method="post">
                     <div class="form-group">
                       <button class="navbar-buttons" type="submit">Logout</button>
                     </div>

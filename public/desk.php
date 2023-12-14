@@ -34,7 +34,7 @@ $activities = $activityCRUD->getAllActivities();
       <nav>
         <ul>
           <li>
-            <form action="logout.php" action = '' method="post">
+            <form action="../resources/user-inputs/logout.php" method="post">
               <div class="form-group">
                 <button class="navbar-buttons" type="submit">Logout</button>
               </div>
@@ -197,6 +197,14 @@ $activities = $activityCRUD->getAllActivities();
                     <button type="submit" class="register-btn" name="update-type" value="update-phone">Submit</button>
                 </div>
             </form>
+            <form action = "../resources/user-inputs/deleteUser.php" method="post">
+                <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="delete-account" class="remove-btn" >Delete Account</button>
+                </div>
+            </form>
+
         </section>
     </div>
   </main>

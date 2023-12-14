@@ -227,6 +227,11 @@ class UserCRUD {
         //decode json string provided
         $parameters = json_decode($jsonParameters, true);
 
+        // delete records on cascade
+        $deleteUserBookingQuery = "DELETE FROM UserToBooking";
+        $deleteUserBookingQuery .= " WHERE userID=".$parameters['userID'];
+        $this->db->query($deleteUserBookingQuery);
+
         // if empty parameters, return 
         if (empty($parameters)) {
             return "No parameters provided.";
